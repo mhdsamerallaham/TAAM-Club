@@ -1,0 +1,625 @@
+/* TAAM Club — Global Design System */
+@import "tailwindcss";
+
+/* =====================================================
+   TAAM CLUB DESIGN TOKENS
+   ===================================================== */
+@theme {
+  /* Brand Colors */
+  --color-taam-blue: #0A1F5C;
+  --color-taam-blue-dark: #071545;
+  --color-taam-blue-light: #1a3580;
+  --color-taam-red: #E8291C;
+  --color-taam-red-dark: #c01e12;
+  --color-taam-red-light: #f04535;
+  --color-taam-white: #FFFFFF;
+  --color-taam-off-white: #F5F4F0;
+  --color-taam-cream: #F0EDE6;
+  --color-taam-charcoal: #111111;
+  --color-taam-gray: #666666;
+  --color-taam-light-gray: #ADADAD;
+  --color-taam-tile: #E8E8E8;
+
+  /* Typography */
+  --font-display: "Anton", "Impact", system-ui, sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-accent: "Manrope", "Inter", system-ui, sans-serif;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+  --spacing-hero: 8rem;
+
+  /* Animation */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+}
+
+/* =====================================================
+   BASE RESET & GLOBAL STYLES
+   ===================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-taam-white);
+  color: var(--color-taam-charcoal);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-taam-off-white);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-taam-blue);
+  border-radius: 3px;
+}
+
+/* =====================================================
+   TYPOGRAPHY UTILITIES
+   ===================================================== */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+.font-accent {
+  font-family: var(--font-accent);
+}
+
+/* Display sizes */
+.text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(80px, 15vw, 200px);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+}
+
+.text-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 10vw, 140px);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+}
+
+.text-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 96px);
+  line-height: 0.95;
+}
+
+.text-display-sm {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 56px);
+  line-height: 1;
+}
+
+/* =====================================================
+   BRAND COLOR UTILITIES
+   ===================================================== */
+.bg-taam-blue { background-color: var(--color-taam-blue); }
+.bg-taam-blue-dark { background-color: var(--color-taam-blue-dark); }
+.bg-taam-red { background-color: var(--color-taam-red); }
+.bg-taam-off-white { background-color: var(--color-taam-off-white); }
+.bg-taam-cream { background-color: var(--color-taam-cream); }
+.bg-taam-charcoal { background-color: var(--color-taam-charcoal); }
+
+.text-taam-blue { color: var(--color-taam-blue); }
+.text-taam-red { color: var(--color-taam-red); }
+.text-taam-off-white { color: var(--color-taam-off-white); }
+.text-taam-charcoal { color: var(--color-taam-charcoal); }
+.text-taam-gray { color: var(--color-taam-gray); }
+
+.border-taam-blue { border-color: var(--color-taam-blue); }
+.border-taam-red { border-color: var(--color-taam-red); }
+
+/* =====================================================
+   COMPONENT UTILITIES
+   ===================================================== */
+
+/* Grain texture overlay */
+.grain-overlay {
+  position: relative;
+}
+.grain-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  border-radius: inherit;
+}
+
+/* Image hover zoom */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img,
+.img-zoom .zoom-target {
+  transition: transform 0.6s var(--ease-out-expo);
+  will-change: transform;
+}
+.img-zoom:hover img,
+.img-zoom:hover .zoom-target {
+  transform: scale(1.05);
+}
+
+/* Magnetic button base */
+.btn-taam {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-taam-primary {
+  background-color: var(--color-taam-blue);
+  color: white;
+  padding: 1rem 2rem;
+}
+.btn-taam-primary:hover {
+  background-color: var(--color-taam-blue-dark);
+  transform: translateY(-2px);
+}
+
+.btn-taam-red {
+  background-color: var(--color-taam-red);
+  color: white;
+  padding: 1rem 2rem;
+}
+.btn-taam-red:hover {
+  background-color: var(--color-taam-red-dark);
+  transform: translateY(-2px);
+}
+
+.btn-taam-outline {
+  background-color: transparent;
+  color: var(--color-taam-blue);
+  border: 2px solid var(--color-taam-blue);
+  padding: 0.875rem 2rem;
+}
+.btn-taam-outline:hover {
+  background-color: var(--color-taam-blue);
+  color: white;
+}
+
+.btn-taam-outline-white {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 0.875rem 2rem;
+}
+.btn-taam-outline-white:hover {
+  background-color: white;
+  color: var(--color-taam-blue);
+}
+
+/* =====================================================
+   LAYOUT UTILITIES
+   ===================================================== */
+.container-taam {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-taam {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-taam {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* Section spacing */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .section-padding {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
+  }
+}
+
+/* =====================================================
+   MARQUEE ANIMATION
+   ===================================================== */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* =====================================================
+   TILE BACKGROUND
+   ===================================================== */
+.tile-bg {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s var(--ease-out-expo) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease both;
+}
+
+/* =====================================================
+   REDUCED MOTION
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+.nav-link {
+  font-family: var(--font-accent);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-taam-charcoal);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-taam-red);
+  transition: width 0.3s var(--ease-out-expo);
+}
+
+.nav-link:hover {
+  color: var(--color-taam-red);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link-white {
+  color: white;
+}
+
+.nav-link-white::after {
+  background-color: white;
+}
+
+.nav-link-white:hover {
+  color: rgba(255,255,255,0.8);
+}
+
+/* =====================================================
+   PRODUCT CARD
+   ===================================================== */
+.product-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.product-card .card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 31, 92, 0.95) 0%, rgba(10, 31, 92, 0.3) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
+
+.product-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.product-card .card-content {
+  transform: translateY(10px);
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+.product-card:hover .card-content {
+  transform: translateY(0);
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.footer-logo-text {
+  font-family: var(--font-display);
+  font-size: clamp(60px, 15vw, 180px);
+  line-height: 0.85;
+  color: rgba(255,255,255,0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* =====================================================
+   ADMIN PANEL
+   ===================================================== */
+.admin-card {
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.admin-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-taam-charcoal);
+  transition: border-color 0.2s ease;
+  outline: none;
+}
+
+.admin-input:focus {
+  border-color: var(--color-taam-blue);
+  box-shadow: 0 0 0 3px rgba(10, 31, 92, 0.1);
+}
+
+.admin-label {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-taam-gray);
+  margin-bottom: 0.375rem;
+  display: block;
+}
+
+/* =====================================================
+   CATEGORY NAV (MENU PAGE)
+   ===================================================== */
+.category-nav-item {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border: 2px solid transparent;
+}
+
+.category-nav-item.active {
+  background-color: var(--color-taam-blue);
+  color: white;
+  border-color: var(--color-taam-blue);
+}
+
+.category-nav-item:not(.active) {
+  color: var(--color-taam-charcoal);
+  border-color: var(--color-taam-tile);
+}
+
+.category-nav-item:not(.active):hover {
+  border-color: var(--color-taam-blue);
+  color: var(--color-taam-blue);
+}
+
+/* =====================================================
+   SKELETON LOADING
+   ===================================================== */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* =====================================================
+   INSTAGRAM GRID
+   ===================================================== */
+.instagram-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.instagram-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.instagram-item:hover img {
+  transform: scale(1.08);
+}
+
+.instagram-item .ig-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 31, 92, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.instagram-item:hover .ig-overlay {
+  opacity: 1;
+}
+
+/* =====================================================
+   HERO SECTION
+   ===================================================== */
+.hero-section {
+  min-height: 100svh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* =====================================================
+   MENU ITEM CARD
+   ===================================================== */
+.menu-item-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--color-taam-tile);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.menu-item-card:hover {
+  background-color: var(--color-taam-off-white);
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 8px;
+}
+
+/* =====================================================
+   SCROLL INDICATOR
+   ===================================================== */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* =====================================================
+   FOCUS STYLES (Accessibility)
+   ===================================================== */
+:focus-visible {
+  outline: 2px solid var(--color-taam-blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* =====================================================
+   MOBILE MENU OVERLAY
+   ===================================================== */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: var(--color-taam-blue);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}

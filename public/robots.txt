@@ -1,0 +1,33 @@
+# TAAM Club - Robots.txt
+# https://taamclub.com
+
+User-agent: *
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
+
+# AI crawlers - allow for GEO/AEO
+User-agent: GPTBot
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap
+Sitemap: https://taamclub.com/sitemap.xml

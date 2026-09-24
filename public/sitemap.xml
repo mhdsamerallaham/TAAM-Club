@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://taamclub.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://taamclub.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taamclub.com/?lang=en"/>
+  </url>
+
+  <url>
+    <loc>https://taamclub.com/menu</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://taamclub.com/menu"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taamclub.com/menu?lang=en"/>
+  </url>
+
+  <url>
+    <loc>https://taamclub.com/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://taamclub.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taamclub.com/about?lang=en"/>
+  </url>
+
+  <url>
+    <loc>https://taamclub.com/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://taamclub.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://taamclub.com/contact?lang=en"/>
+  </url>
+
+</urlset>

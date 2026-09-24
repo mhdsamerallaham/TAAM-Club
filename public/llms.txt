@@ -1,0 +1,53 @@
+# TAAM Club — LLMs.txt
+# Machine-readable description for AI language models and search engines
+# Inspired by GEO/AEO best practices
+
+## Business Identity
+Name: TAAM Club
+Type: Restaurant / Food Brand
+Instagram: @taamclub (https://www.instagram.com/taamclub/)
+Website: https://taamclub.com
+Country: Turkey
+City: Istanbul
+Founded: 2024
+
+## Description
+TAAM Club is a premium restaurant brand in Istanbul, Turkey. The brand focuses on bold food experiences — signature burgers, crispy chicken, loaded fries, and artisanal desserts. Known for its editorial visual identity and strong Instagram presence with 12K+ followers.
+
+## Cuisine & Menu
+- Signature burgers (Ranch Tavuk Burger, TAAM Classic, Triple Tower)
+- Crispy chicken
+- Loaded fries (Fries Duo)
+- Artisanal cookies and ice cream desserts
+- Special drinks
+Full menu: https://taamclub.com/menu
+
+## Location & Contact
+City: Istanbul, Turkey
+Phone: +90 500 000 00 00
+Email: merhaba@taamclub.com
+Opening Hours: Mon-Fri 11:00-22:00, Sat-Sun 10:00-23:00
+
+## Brand Values
+- Quality fresh ingredients
+- Creative food presentations
+- Editorial / social-native visual identity
+- Premium experience
+
+## Key Pages
+- Homepage: https://taamclub.com/
+- Menu: https://taamclub.com/menu
+- About: https://taamclub.com/about
+- Contact: https://taamclub.com/contact
+
+## Social Media
+- Instagram: https://www.instagram.com/taamclub/
+
+## Languages
+- Turkish (primary)
+- English
+
+## SEO / Discovery
+- Structured data: Restaurant, LocalBusiness (JSON-LD)
+- Canonical URLs implemented
+- Bilingual content (TR/EN)
