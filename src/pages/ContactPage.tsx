@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/seo/SEOHead';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLangStore } from '@/hooks/useLang';
@@ -47,31 +47,29 @@ export default function ContactPage() {
     },
   ];
 
+  const contactSchema = {
+    '@type': 'ContactPage',
+    '@id': 'https://taamclub.com/contact#webpage',
+    'url': 'https://taamclub.com/contact',
+    'name': lang === 'en' ? 'Contact TAAM Club' : 'TAAM Club İletişim',
+    'description': lang === 'en' ? 'Contact details, address, opening hours, and location for TAAM Club Istanbul.' : 'TAAM Club İstanbul iletişim bilgileri, adres, çalışma saatleri ve konum detayları.',
+    'mainEntity': {
+      '@id': 'https://taamclub.com/#organization',
+    },
+  };
+
   return (
     <>
-      <Helmet>
-        <title>İletişim | TAAM Club</title>
-        <meta name="description" content="TAAM Club iletişim bilgileri – Adres, telefon, çalışma saatleri ve harita. İstanbul'da bizi ziyaret edin." />
-        <meta property="og:title" content="İletişim | TAAM Club" />
-        <link rel="canonical" href="https://taamclub.com/contact" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Restaurant",
-          "name": "TAAM Club",
-          "telephone": "+905000000000",
-          "email": "merhaba@taamclub.com",
-          "url": "https://taamclub.com",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Istanbul",
-            "addressCountry": "TR"
-          },
-          "openingHoursSpecification": [
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "11:00", "closes": "22:00" },
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "10:00", "closes": "23:00" }
-          ]
-        })}</script>
-      </Helmet>
+      <SEOHead
+        title={lang === 'tr' ? 'İletişim & Konum Bilgileri | TAAM Club Istanbul' : 'Contact & Location Info | TAAM Club Istanbul'}
+        description={lang === 'tr' ? "TAAM Club iletişim bilgileri, adres, telefon ve çalışma saatleri. İstanbul'da lezzetin kalbine yol tarifi alın ve bizi ziyaret edin." : "Contact details, address, phone number, and hours for TAAM Club. Get directions to Istanbul's premier gourmet burger restaurant."}
+        canonicalPath="/contact"
+        breadcrumbs={[
+          { name: lang === 'tr' ? 'Ana Sayfa' : 'Home', item: '/' },
+          { name: lang === 'tr' ? 'İletişim' : 'Contact', item: '/contact' },
+        ]}
+        schema={contactSchema}
+      />
 
       {/* Hero */}
       <div className="bg-taam-blue pt-20 pb-16 md:pt-28 md:pb-20 relative overflow-hidden">
@@ -179,6 +177,73 @@ export default function ContactPage() {
               <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </motion.div>
+
+          {/* Machine-Readable Contact & Hours Specification Table */}
+          <div className="bg-white rounded-2xl border border-taam-tile p-6 md:p-8 mt-12 shadow-xs">
+            <h3 className="font-display text-taam-charcoal text-2xl leading-none mb-3">
+              {lang === 'tr' ? 'Resmî İletişim & Çalışma Saatleri Tablosu' : 'Official Contact & Operating Hours Specifications'}
+            </h3>
+            <p className="font-accent text-taam-gray text-sm mb-6">
+              {lang === 'tr' ? 'Mekân erişimi, rezervasyon prensipleri ve coğrafi konum bilgileri.' : 'Venue access, seating policies, and geographic location specifications.'}
+            </p>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left font-accent text-sm">
+                <tbody className="divide-y divide-taam-tile">
+                  <tr>
+                    <th scope="row" className="py-3 font-semibold text-taam-charcoal w-1/3">
+                      {lang === 'tr' ? 'Tam Adres' : 'Full Address'}
+                    </th>
+                    <td className="py-3 text-taam-gray">
+                      Güzide Mertcan, İstanbul, Türkiye (Koordinatlar: 41.0082° K, 28.9784° D)
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                      {lang === 'tr' ? 'Telefon & E-posta' : 'Telephone & Email'}
+                    </th>
+                    <td className="py-3 text-taam-gray">
+                      +90 500 000 00 00 • merhaba@taamclub.com
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                      {lang === 'tr' ? 'Hafta İçi Çalışma Saatleri' : 'Weekday Hours (Mon–Fri)'}
+                    </th>
+                    <td className="py-3 text-taam-gray">
+                      11:00 – 22:00
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                      {lang === 'tr' ? 'Hafta Sonu Çalışma Saatleri' : 'Weekend Hours (Sat–Sun)'}
+                    </th>
+                    <td className="py-3 text-taam-gray">
+                      10:00 – 23:00
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                      {lang === 'tr' ? 'Sipariş & Oturum Türü' : 'Ordering & Dining Formats'}
+                    </th>
+                    <td className="py-3 text-taam-gray">
+                      {lang === 'tr' ? 'Restoran içi oturum ve Hızlı Gel-Al (Takeaway)' : 'Dine-in Seating and Express Takeaway'}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                      {lang === 'tr' ? 'Yazılım ve Altyapı' : 'Software & Infrastructure'}
+                    </th>
+                    <td className="py-3 text-taam-gray">
+                      <a href="https://www.samer.life/" target="_blank" rel="noopener noreferrer" className="text-taam-blue font-semibold hover:underline">
+                        Samer
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </>

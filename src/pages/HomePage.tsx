@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Helmet } from 'react-helmet-async';
-import { ArrowRight, MapPin, Clock, Phone } from 'lucide-react';
+import SEOHead from '@/components/seo/SEOHead';
+import { ArrowRight, MapPin, Clock, Phone, HelpCircle } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/Icons';
 import { useLangStore } from '@/hooks/useLang';
 import { getFeaturedProducts, getInstagramPosts } from '@/lib/supabase/queries';
@@ -204,36 +204,54 @@ export default function HomePage() {
     loadData();
   }, []);
 
+  const faqItems = [
+    {
+      q: lang === 'tr' ? 'TAAM Club nedir ve nerede bulunur?' : 'What is TAAM Club and where is it located?',
+      a: lang === 'tr'
+        ? "TAAM Club, İstanbul Güzide Mertcan adresinde yer alan, taze el yapımı burgerler, çıtır marine tavuk ve özel tarifler sunan yeni nesil gurme fast-casual restorandır."
+        : 'TAAM Club is a next-generation gourmet fast-casual restaurant located at Güzide Mertcan, Istanbul, offering fresh handcrafted burgers, crispy marinated chicken, and signature recipes.',
+    },
+    {
+      q: lang === 'tr' ? 'Menüde en çok tercih edilen imza lezzetler hangileridir?' : 'What are the signature menu items at TAAM Club?',
+      a: lang === 'tr'
+        ? "En popüler imza lezzetlerimiz Ranch Tavuk Burger, dana etli TAAM Klasik Burger, çıtır tavuk tenders, çift soslu Fries Duo ve fırından yeni çıkmış Cookie Dondurma'dır."
+        : 'Our top signature items include the Ranch Chicken Burger, prime beef TAAM Classic Burger, crispy chicken tenders, dual-sauced Fries Duo, and warm Cookie Ice Cream.',
+    },
+    {
+      q: lang === 'tr' ? 'Vejetaryen ve acı seçenekler mevcut mu?' : 'Are there vegetarian and spicy options available?',
+      a: lang === 'tr'
+        ? 'Evet, özel soslu Fries Duo patates kızartmamız ve Cookie Dondurma tatlımız vejetaryendir; ayrıca acı severler için özel acı marine çıtır tavuk ve sos seçeneklerimiz bulunmaktadır.'
+        : 'Yes, our Fries Duo and artisanal Cookie Ice Cream are vegetarian; we also offer specially seasoned spicy crispy chicken and dipping sauces.',
+    },
+    {
+      q: lang === 'tr' ? 'Çalışma saatleri ve paket servis hizmeti nedir?' : 'What are the operating hours and takeaway options?',
+      a: lang === 'tr'
+        ? 'Hafta içi 11:00–22:00, hafta sonu 10:00–23:00 saatleri arasında açığız. Restoran içi deneyimin yanı sıra hızlı gel-al (takeaway) servisimiz mevcuttur.'
+        : 'We are open Monday–Friday 11:00–22:00 and Saturday–Sunday 10:00–23:00, offering both dine-in experience and fast takeaway service.',
+    },
+  ];
+
+  const homePageFaqSchema = {
+    '@type': 'FAQPage',
+    '@id': 'https://taamclub.com/#faq',
+    'mainEntity': faqItems.map((item) => ({
+      '@type': 'Question',
+      'name': item.q,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': item.a,
+      },
+    })),
+  };
+
   return (
     <>
-      <Helmet>
-        <title>TAAM Club | İyi Yemek. İyi Enerji. | Istanbul</title>
-        <meta name="description" content="TAAM Club – Premium burgerler, çıtır tavuk, özel tarifler. İstanbul'un en iyi burger deneyimi." />
-        <meta property="og:title" content="TAAM Club | İyi Yemek. İyi Enerji." />
-        <meta property="og:description" content="Premium burgerler, çıtır tavuk ve özel tatlar." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://taamclub.com" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://taamclub.com" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Restaurant",
-          "name": "TAAM Club",
-          "url": "https://taamclub.com",
-          "sameAs": ["https://www.instagram.com/taamclub/"],
-          "servesCuisine": ["American", "Burger", "Chicken"],
-          "priceRange": "₺₺",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Istanbul",
-            "addressCountry": "TR"
-          },
-          "openingHoursSpecification": [
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "11:00", "closes": "22:00" },
-            { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "10:00", "closes": "23:00" }
-          ]
-        })}</script>
-      </Helmet>
+      <SEOHead
+        title={lang === 'tr' ? 'TAAM Club | Gurme Burger & Çıtır Tavuk İstanbul' : 'TAAM Club | Gourmet Burgers & Crispy Chicken Istanbul'}
+        description={lang === 'tr' ? "TAAM Club – İstanbul'un en özel gurme burgerleri, çıtır tavuk ve tatlı deneyimi. Taze malzemeler, lezzetin yeni kuralları." : "TAAM Club – Istanbul's premier gourmet burgers, crispy chicken, and artisanal desserts. Fresh ingredients and bold flavors."}
+        canonicalPath="/"
+        schema={homePageFaqSchema}
+      />
 
       {/* ═══ SECTION 1: HERO ═══════════════════════════════════════ */}
       <section
@@ -293,21 +311,10 @@ export default function HomePage() {
                 animate={{ y: 0 }}
                 transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 className="text-display-xl text-white leading-none block"
-                aria-label="TAAM CLUB"
               >
-                TAAM
+                <span>TAAM</span>
+                <span className="text-taam-red block -mt-4 md:-mt-6">CLUB</span>
               </motion.h1>
-            </div>
-            <div className="overflow-hidden">
-              <motion.div
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-display-xl text-taam-red leading-none block -mt-4 md:-mt-6"
-                aria-hidden="true"
-              >
-                CLUB
-              </motion.div>
             </div>
 
             {/* Tagline */}
@@ -680,6 +687,97 @@ export default function HomePage() {
                 ))}
               </div>
             </RevealSection>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SECTION 10: FAQ & CULINARY SPECIFICATIONS (GEO CITATION READY) ═══════════════════════ */}
+      <section className="bg-taam-off-white section-padding border-t border-taam-tile" aria-label="Sıkça Sorulan Sorular ve Mutfak Detayları">
+        <div className="container-taam">
+          <div className="max-w-4xl mx-auto">
+            <RevealSection className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 mb-3">
+                <HelpCircle size={16} className="text-taam-red" />
+                <span className="font-accent text-taam-red text-xs uppercase tracking-widest">
+                  {lang === 'tr' ? 'Merak Edilenler & Detaylar' : 'FAQ & Specifications'}
+                </span>
+              </div>
+              <h2 className="text-display-sm text-taam-charcoal leading-none">
+                {lang === 'tr' ? 'TAAM Club Hakkında Sıkça Sorulan Sorular' : 'Frequently Asked Questions About TAAM Club'}
+              </h2>
+              <p className="font-accent text-taam-gray text-sm mt-3">
+                {lang === 'tr' ? 'Gastronomi felsefemiz, malzemelerimiz ve restoran detaylarımız.' : 'Our culinary philosophy, fresh ingredients, and restaurant specifications.'}
+              </p>
+            </RevealSection>
+
+            {/* Direct Concise Answer FAQ grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+              {faqItems.map((item, i) => (
+                <div key={i} className="bg-white p-6 rounded-2xl border border-taam-tile shadow-xs">
+                  <h3 className="font-display text-taam-charcoal text-xl leading-tight mb-3">
+                    {item.q}
+                  </h3>
+                  <p className="font-accent text-taam-gray text-sm leading-relaxed">
+                    {item.a}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* Machine-Readable & High-Density Structured Table */}
+            <div className="bg-white rounded-2xl border border-taam-tile p-6 md:p-8 shadow-xs">
+              <h3 className="font-display text-taam-charcoal text-xl mb-4">
+                {lang === 'tr' ? 'TAAM Club Kurumsal & Mutfak Özeti' : 'TAAM Club Culinary & Entity Specifications'}
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left font-accent text-sm">
+                  <tbody className="divide-y divide-taam-tile">
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal w-1/3">
+                        {lang === 'tr' ? 'Mutfak Konsepti' : 'Cuisine Concept'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        {lang === 'tr' ? 'Gurme Burgerler, Çıtır Marine Tavuk, Patates & El Yapımı Tatlılar' : 'Gourmet Burgers, Crispy Marinated Chicken, Fries & Artisanal Desserts'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                        {lang === 'tr' ? 'Et & Malzeme Kalitesi' : 'Meat & Ingredient Quality'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        {lang === 'tr' ? '%100 Yerli taze dana eti, günlük taze pişen brioche ekmekleri' : '100% Fresh domestic beef, daily-baked artisanal brioche buns'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                        {lang === 'tr' ? 'Adres & Şehir' : 'Location & City'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        Güzide Mertcan, İstanbul, Türkiye
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                        {lang === 'tr' ? 'Çalışma Saatleri' : 'Operating Hours'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        {lang === 'tr' ? 'Hafta içi 11:00–22:00 | Hafta sonu 10:00–23:00' : 'Mon–Fri 11:00–22:00 | Sat–Sun 10:00–23:00'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                        {lang === 'tr' ? 'Geliştirici & Mimari' : 'Engineering & Architecture'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        <a href="https://www.samer.life/" target="_blank" rel="noopener noreferrer" className="text-taam-blue font-semibold hover:underline">
+                          Samer
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </section>

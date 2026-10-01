@@ -105,9 +105,20 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/40 text-xs font-accent">
-            © {currentYear} TAAM Club. {t('footer.rights')}
-          </p>
+          <div className="flex items-center gap-2 text-white/40 text-xs font-accent">
+            <span>© {currentYear} TAAM Club. {t('footer.rights')}</span>
+            <span className="text-white/20">•</span>
+            <a
+              href="https://www.samer.life/"
+              target="_blank"
+              rel="nofollow noopener"
+              title="Developer Portfolio"
+              style={{ color: 'inherit', textDecoration: 'none' }}
+              className="hover:text-white/70 transition-colors"
+            >
+              Built by
+            </a>
+          </div>
           <div className="flex items-center gap-4">
             <button
               onClick={() => setLang('tr')}

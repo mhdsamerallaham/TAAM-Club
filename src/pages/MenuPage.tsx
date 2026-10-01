@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/seo/SEOHead';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLangStore } from '@/hooks/useLang';
@@ -175,14 +175,41 @@ export default function MenuPage() {
     }
   };
 
+  const menuSchema = {
+    '@type': 'Menu',
+    '@id': 'https://taamclub.com/menu#menu',
+    'name': lang === 'en' ? 'TAAM Club Menu' : 'TAAM Club Menüsü',
+    'description': lang === 'en' ? 'Gourmet burgers, crispy chicken, fries and desserts at TAAM Club Istanbul.' : 'TAAM Club İstanbul gurme burger, çıtır tavuk, patates ve tatlı menüsü.',
+    'inLanguage': ['tr-TR', 'en-US'],
+    'hasMenuSection': categories.map((cat) => ({
+      '@type': 'MenuSection',
+      'name': lang === 'en' ? cat.name_en : cat.name_tr,
+      'hasMenuItem': productsByCategory(cat.id).map((p) => ({
+        '@type': 'MenuItem',
+        'name': lang === 'en' ? p.name_en : p.name_tr,
+        'description': lang === 'en' ? (p.description_en ?? '') : (p.description_tr ?? ''),
+        'offers': {
+          '@type': 'Offer',
+          'price': p.price,
+          'priceCurrency': 'TRY',
+          'availability': 'https://schema.org/InStock',
+        },
+      })),
+    })),
+  };
+
   return (
     <>
-      <Helmet>
-        <title>Menü | TAAM Club</title>
-        <meta name="description" content="TAAM Club menüsü – Burgerler, tavuk, patates, tatlılar ve içecekler. Her lokma özel, her tat benzersiz." />
-        <meta property="og:title" content="Menü | TAAM Club" />
-        <link rel="canonical" href="https://taamclub.com/menu" />
-      </Helmet>
+      <SEOHead
+        title={lang === 'tr' ? 'Gurme Burger ve Çıtır Tavuk Menüsü | TAAM Club' : 'Gourmet Burgers & Crispy Chicken Menu | TAAM Club'}
+        description={lang === 'tr' ? 'TAAM Club zengin lezzet menüsü: Ranch Tavuk Burger, çıtır tavuk tenders, Fries Duo ve fırından yeni çıkmış gurme tatlılar. Güncel fiyatlar.' : 'TAAM Club full menu: Ranch Chicken Burger, crispy chicken tenders, Fries Duo, and warm artisanal desserts with current prices in Istanbul.'}
+        canonicalPath="/menu"
+        breadcrumbs={[
+          { name: lang === 'tr' ? 'Ana Sayfa' : 'Home', item: '/' },
+          { name: lang === 'tr' ? 'Menü' : 'Menu', item: '/menu' },
+        ]}
+        schema={menuSchema}
+      />
 
       {/* ─── Hero Banner ─── */}
       <div className="bg-taam-blue pt-20 pb-12 md:pt-28 md:pb-16" aria-label="Menü başlığı">
@@ -271,6 +298,55 @@ export default function MenuPage() {
           )}
         </div>
       </div>
+
+      {/* ─── Extractable Menu Specifications & Nutrition Facts for LLMs & AI Engines ─── */}
+      <section className="bg-taam-off-white py-12 border-t border-taam-tile" aria-label="Menü Özeti ve Besin Standartları">
+        <div className="container-taam">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-display text-taam-charcoal text-2xl md:text-3xl mb-3">
+              {lang === 'tr' ? 'Menü Standartları ve Fiyat Tablosu' : 'Menu Standards & Price Specifications'}
+            </h2>
+            <p className="font-accent text-taam-gray text-sm mb-6">
+              {lang === 'tr'
+                ? 'Tüm ürünlerimiz günlük taze malzemeler ve yerel tedarikçiler ile hazırlanır. Fiyatlarımıza KDV dahildir.'
+                : 'All items are prepared with fresh daily ingredients and domestic sourcing. VAT included in all listed prices.'}
+            </p>
+
+            <div className="bg-white rounded-xl border border-taam-tile overflow-hidden shadow-xs">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left font-accent text-sm">
+                  <thead className="bg-taam-charcoal text-white text-xs uppercase tracking-wider">
+                    <tr>
+                      <th scope="col" className="p-3.5">{lang === 'tr' ? 'Ürün / Lezzet' : 'Item / Flavor'}</th>
+                      <th scope="col" className="p-3.5">{lang === 'tr' ? 'Kategori' : 'Category'}</th>
+                      <th scope="col" className="p-3.5">{lang === 'tr' ? 'Özellik / İçerik' : 'Characteristics / Ingredients'}</th>
+                      <th scope="col" className="p-3.5 text-right">{lang === 'tr' ? 'Fiyat' : 'Price'}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-taam-tile">
+                    {products.slice(0, 6).map((prod) => (
+                      <tr key={prod.id} className="hover:bg-taam-off-white/50 transition-colors">
+                        <td className="p-3.5 font-semibold text-taam-charcoal">
+                          {lang === 'en' ? prod.name_en : prod.name_tr}
+                        </td>
+                        <td className="p-3.5 text-taam-gray">
+                          {lang === 'en' ? prod.category?.name_en : prod.category?.name_tr}
+                        </td>
+                        <td className="p-3.5 text-taam-gray text-xs">
+                          {lang === 'en' ? prod.description_en : prod.description_tr}
+                        </td>
+                        <td className="p-3.5 font-display text-taam-blue text-base text-right whitespace-nowrap">
+                          ₺{prod.price.toFixed(0)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

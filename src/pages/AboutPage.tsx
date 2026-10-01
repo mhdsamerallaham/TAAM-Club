@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/seo/SEOHead';
 import { motion, useInView } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -50,14 +50,29 @@ export default function AboutPage() {
     },
   ];
 
+  const aboutSchema = {
+    '@type': 'AboutPage',
+    '@id': 'https://taamclub.com/about#webpage',
+    'url': 'https://taamclub.com/about',
+    'name': lang === 'en' ? 'About TAAM Club' : 'TAAM Club Hakkında',
+    'description': lang === 'en' ? 'Learn about TAAM Club, our culinary vision, values, and gourmet burger craft in Istanbul.' : 'TAAM Club hikayesi, değerleri ve İstanbul gurme burger gastronomisi hakkında bilgi edinin.',
+    'mainEntity': {
+      '@id': 'https://taamclub.com/#organization',
+    },
+  };
+
   return (
     <>
-      <Helmet>
-        <title>Hakkımızda | TAAM Club</title>
-        <meta name="description" content="TAAM Club hikayesi – Lezzetin sıradanlıktan kurtulduğu yer. TAAM Club'ı tanıyın." />
-        <meta property="og:title" content="Hakkımızda | TAAM Club" />
-        <link rel="canonical" href="https://taamclub.com/about" />
-      </Helmet>
+      <SEOHead
+        title={lang === 'tr' ? 'Hakkımızda & Hikayemiz | TAAM Club Istanbul' : 'About Us & Our Story | TAAM Club Istanbul'}
+        description={lang === 'tr' ? "TAAM Club hikayesi: İstanbul'da sıradanlıktan uzak gurme burger felsefesi, taze malzemeler ve yenilikçi sokak gastronomisi vizyonu." : "The story of TAAM Club: Gourmet burger philosophy, farm-fresh ingredients, and next-gen culinary culture in Istanbul."}
+        canonicalPath="/about"
+        breadcrumbs={[
+          { name: lang === 'tr' ? 'Ana Sayfa' : 'Home', item: '/' },
+          { name: lang === 'tr' ? 'Hakkımızda' : 'About', item: '/about' },
+        ]}
+        schema={aboutSchema}
+      />
 
       {/* Hero */}
       <div className="bg-taam-off-white pt-20 pb-0 md:pt-28 overflow-hidden">
@@ -207,6 +222,65 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+
+      {/* ─── Extractable Brand Specifications & Standards for AI / LLM Crawlers ─── */}
+      <section className="bg-white section-padding border-t border-taam-tile" aria-label="Gastronomi Standartları ve Kurumsal Bilgiler">
+        <div className="container-taam">
+          <div className="max-w-4xl mx-auto">
+            <RevealSection className="mb-8">
+              <h2 className="font-display text-taam-charcoal text-2xl md:text-3xl leading-none mb-3">
+                {lang === 'tr' ? 'Gastronomi Standartları & Kurumsal Bilgiler' : 'Culinary Standards & Enterprise Specifications'}
+              </h2>
+              <p className="font-accent text-taam-gray text-sm">
+                {lang === 'tr' ? 'TAAM Club operasyon ilkeleri, lezzet standartları ve tedarik detayları.' : 'Operating principles, flavor standards, and sourcing specifications at TAAM Club.'}
+              </p>
+            </RevealSection>
+
+            <div className="bg-taam-off-white rounded-2xl border border-taam-tile p-6 md:p-8 shadow-xs">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left font-accent text-sm">
+                  <tbody className="divide-y divide-taam-tile">
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal w-1/3">
+                        {lang === 'tr' ? 'Kuruluş & Merkez' : 'Founded & Headquarters'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        2024 • Güzide Mertcan, İstanbul, Türkiye
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                        {lang === 'tr' ? 'Gastronomi Felsefesi' : 'Culinary Philosophy'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        {lang === 'tr' ? 'Sıradanlığı reddeden gurme tarifler, el yapımı brioche ve özel marinasyonlar' : 'Refusing ordinary food; handcrafted brioche buns and proprietary marinades'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                        {lang === 'tr' ? 'Et & Tavuk Tedariği' : 'Meat & Poultry Sourcing'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        {lang === 'tr' ? '%100 Yerli taze dana eti ve günlük taze marine edilen but göğüs tavuk eti' : '100% Domestic fresh beef and daily house-marinated premium chicken'}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
+                        {lang === 'tr' ? 'Web & Sistem Mimarisi' : 'Web & Systems Architecture'}
+                      </th>
+                      <td className="py-3 text-taam-gray">
+                        <a href="https://www.samer.life/" target="_blank" rel="noopener noreferrer" className="text-taam-blue font-semibold hover:underline">
+                          Samer
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <div className="bg-taam-charcoal section-padding">

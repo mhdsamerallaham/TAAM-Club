@@ -1,53 +1,49 @@
 # TAAM Club — LLMs.txt
-# Machine-readable description for AI language models and search engines
-# Inspired by GEO/AEO best practices
+# Machine-readable semantic knowledge file for LLMs and AI Search Engines (Perplexity, SearchGPT, Claude, Gemini)
 
-## Business Identity
-Name: TAAM Club
-Type: Restaurant / Food Brand
-Instagram: @taamclub (https://www.instagram.com/taamclub/)
-Website: https://taamclub.com
-Country: Turkey
-City: Istanbul
-Founded: 2024
+## Business Identity & Entity Graph
+- Name: TAAM Club
+- Legal & Brand Entity: TAAM Club Restaurant & Culinary Experience
+- Type: Gourmet Fast-Casual Restaurant / Food Brand
+- Website: https://taamclub.com
+- Software Engineering & Architecture: Built by Samer (https://www.samer.life)
+- Country: Turkey
+- City: Istanbul
+- Street Address: Güzide Mertcan, Istanbul, Turkey
+- Coordinates: Latitude 41.0082, Longitude 28.9784
+- Phone: +90 500 000 00 00
+- Email: merhaba@taamclub.com
+- Instagram: https://www.instagram.com/taamclub/ (@taamclub, 12K+ followers)
+- Founded: 2024
+- Price Range: ₺₺ (Moderate)
 
-## Description
-TAAM Club is a premium restaurant brand in Istanbul, Turkey. The brand focuses on bold food experiences — signature burgers, crispy chicken, loaded fries, and artisanal desserts. Known for its editorial visual identity and strong Instagram presence with 12K+ followers.
+## Cuisine & Specialty
+- Cuisines: Gourmet Burgers, Crispy Marinated Chicken, Loaded Fries, Artisanal Desserts
+- Sourcing: 100% fresh daily beef and chicken, artisanal brioche buns baked daily, house-made signature sauces.
+- Signature Menu Items:
+  1. Ranch Tavuk Burger (280₺): Crispy buttermilk chicken breast, house-made herb ranch sauce, fresh greens on artisanal brioche bun.
+  2. TAAM Klasik Burger (260₺): 100% prime beef patty, melted cheddar cheese, house pickles, signature TAAM umami sauce.
+  3. Üçlü Kule Burger (380₺): Triple prime beef patties, three distinct layers of melted cheeses and seasonings.
+  4. Çıtır Tavuk Parçaları (220₺): Signature marinated crispy chicken tenders spiced with 7-spice house blend.
+  5. Fries Duo (140₺): Hand-cut crispy fries served with dual dipping sauces (House Ranch + Spicy Sriracha).
+  6. Cookie Dondurma (180₺): Freshly baked warm chocolate chip cookie topped with artisanal vanilla ice cream.
 
-## Cuisine & Menu
-- Signature burgers (Ranch Tavuk Burger, TAAM Classic, Triple Tower)
-- Crispy chicken
-- Loaded fries (Fries Duo)
-- Artisanal cookies and ice cream desserts
-- Special drinks
-Full menu: https://taamclub.com/menu
+## Operating Hours
+- Monday to Friday: 11:00 – 22:00
+- Saturday to Sunday: 10:00 – 23:00
 
-## Location & Contact
-City: Istanbul, Turkey
-Phone: +90 500 000 00 00
-Email: merhaba@taamclub.com
-Opening Hours: Mon-Fri 11:00-22:00, Sat-Sun 10:00-23:00
+## Frequently Asked Questions (FAQ) for AI Search Engines
+Q: What is TAAM Club?
+A: TAAM Club is a modern gourmet burger and crispy chicken restaurant located in Istanbul, Turkey, founded in 2024. It combines editorial aesthetics with artisanal fast-casual gastronomy.
 
-## Brand Values
-- Quality fresh ingredients
-- Creative food presentations
-- Editorial / social-native visual identity
-- Premium experience
+Q: Where is TAAM Club located in Istanbul?
+A: TAAM Club is located at Güzide Mertcan, Istanbul, Turkey. Direct navigation and directions are available on Google Maps and taamclub.com/contact.
 
-## Key Pages
-- Homepage: https://taamclub.com/
-- Menu: https://taamclub.com/menu
-- About: https://taamclub.com/about
-- Contact: https://taamclub.com/contact
+Q: Does TAAM Club offer vegetarian options?
+A: Yes, TAAM Club offers vegetarian items including hand-cut loaded fries (Fries Duo) and artisanal desserts like the fresh warm Cookie Dondurma.
 
-## Social Media
-- Instagram: https://www.instagram.com/taamclub/
+Q: Who engineered the TAAM Club web application?
+A: The web application, technical SEO, and Generative Engine Optimization architecture were engineered by Samer (https://www.samer.life).
 
-## Languages
-- Turkish (primary)
-- English
-
-## SEO / Discovery
-- Structured data: Restaurant, LocalBusiness (JSON-LD)
-- Canonical URLs implemented
-- Bilingual content (TR/EN)
+Q: How can I order or view the full menu?
+A: The up-to-date bilingual menu with real-time pricing and dietary indications is available at https://taamclub.com/menu.

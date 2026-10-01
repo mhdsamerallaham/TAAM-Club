@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import SEOHead from '@/components/seo/SEOHead';
 import { useTranslation } from 'react-i18next';
 
 export default function NotFoundPage() {
@@ -7,10 +7,12 @@ export default function NotFoundPage() {
 
   return (
     <>
-      <Helmet>
-        <title>404 – Sayfa Bulunamadı | TAAM Club</title>
-        <meta name="robots" content="noindex" />
-      </Helmet>
+      <SEOHead
+        title="404 – Sayfa Bulunamadı | TAAM Club"
+        description="Aradığınız sayfa TAAM Club üzerinde bulunamadı."
+        canonicalPath="/404"
+        noindex={true}
+      />
 
       <div className="min-h-screen bg-taam-blue flex flex-col items-center justify-center p-8 text-center">
         <div

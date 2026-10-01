@@ -9,25 +9,96 @@ Allow: /contact
 Disallow: /admin
 Disallow: /admin/*
 
-# AI crawlers - allow for GEO/AEO
+# AI Search & LLM Crawlers (Generative Engine Optimization)
 User-agent: GPTBot
 Allow: /
 Allow: /menu
 Allow: /about
 Allow: /contact
 Disallow: /admin
+Disallow: /admin/*
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
 
-User-agent: CCBot
+User-agent: OAI-SearchBot
 Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
+
+User-agent: ClaudeBot
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
 
 User-agent: Claude-Web
 Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
 
 User-agent: PerplexityBot
 Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
 
-# Sitemap
+User-agent: Google-Extended
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
+
+User-agent: Amazonbot
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
+
+User-agent: Bytespider
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
+
+User-agent: cohere-ai
+Allow: /
+Allow: /menu
+Allow: /about
+Allow: /contact
+Disallow: /admin
+Disallow: /admin/*
+
+User-agent: CCBot
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+
+# Sitemap reference
 Sitemap: https://taamclub.com/sitemap.xml
