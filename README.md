@@ -1,351 +1,222 @@
-# TAAM Club — Premium Restaurant Website
+# TAAM Club — Official Restaurant & Culinary Platform
 
-A premium, editorial restaurant website for **TAAM Club** (@taamclub) built with React, TypeScript, Vite, Tailwind CSS, Framer Motion and Supabase.
-
----
-
-## Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | React 19 + TypeScript |
-| Build | Vite 8 |
-| Styling | Tailwind CSS v4 |
-| Animation | Framer Motion 13 |
-| Database | Supabase (PostgreSQL) |
-| Auth | Supabase Auth |
-| i18n | react-i18next |
-| Routing | React Router DOM v7 |
-| State | Zustand |
-| Icons | Lucide React |
-| SEO | React Helmet Async |
-| Hosting | Vercel |
+A bilingual (TR/EN), editorial brand, digital menu, careers, and CMS platform for **TAAM Club** (`@taamclub`, `https://taamclub.com`), engineered with React 19, TypeScript 6, Vite 8, Tailwind CSS v4, Framer Motion 13, and Supabase (PostgreSQL + Auth + RLS).
 
 ---
 
-## Project Structure
+## 1. Project Overview
 
-```
+TAAM Club's web platform serves as the official digital flagship for its fast-casual culinary concept in Istanbul ("Good sofra, better days").
+
+### Core Capabilities
+- **Bilingual Digital Menu (`/menu`)**: Real-time category filtering, portion/weight indicators, multi-size price variants (`S/M/L`, `6/10/14 pcs`), dietary badges (`New`, `Signature`, `Spicy`, `Vegetarian`), and machine-readable specification tables.
+- **Brand & Culinary Story (`/about`)**: Editorial storytelling, brand values, official Noord Design brand identity palette (`#002664` Pantone 281 C, `#E8291C`), and Anatolian kilim motifs (`TaamMotifs`).
+- **Careers & Job Application Portal (`/careers`, `/kariyer`)**: Open hospitality/culinary positions and a client-side application form with mandatory KVKK Candidate Privacy Notice acknowledgment that formats structured applications to `info@taamclub.com`.
+- **Contact & Location Hub (`/contact`)**: Google Maps embedded iframe, direct navigation links, operating hours, and official contact channels (`info@taamclub.com`, `@taamclub`).
+- **Admin CMS (`/admin`)**: Authenticated management console for full CRUD operations on Products, Categories, Instagram Gallery items, and Site Settings, with an automatic in-memory Demo Mode fallback when Supabase environment variables are not configured.
+- **Technical SEO & GEO (Generative Engine Optimization)**: Dynamic JSON-LD `@graph` (`WebSite`, `Restaurant`, `FastFoodRestaurant`, `Menu`, `FAQPage`, `ContactPage`, `AboutPage`, `BreadcrumbList`), `public/llms.txt`, and explicit AI crawler rules in `public/robots.txt`.
+
+---
+
+## 2. Technology Stack
+
+| Layer | Technology | Version | Purpose |
+|---|---|---|---|
+| **Frontend Framework** | React + React DOM | `^19.2.8` | Component UI & rendering |
+| **Language** | TypeScript | `~6.0.2` | Static type safety |
+| **Build Tool** | Vite | `^8.3.0` | Bundler, HMR & code splitting |
+| **Styling** | Tailwind CSS (`@tailwindcss/vite`) | `^4.3.3` | Design tokens & utility styling |
+| **Animation** | Framer Motion | `^13.4.3` | Scroll parallax, page & reveal animations |
+| **Routing** | React Router DOM | `^7.18.4` | Client-side SPA routing with `React.lazy` |
+| **State Management** | Zustand | `^5.0.15` | Language state (`useLangStore`) |
+| **Internationalization** | `i18next` + `react-i18next` | `^26.4.2` / `^17.0.15` | Bilingual TR/EN translations |
+| **SEO & Head Management** | `react-helmet-async` | `^3.0.0` | Dynamic meta tags, canonicals, JSON-LD |
+| **Backend / Database** | Supabase (`@supabase/supabase-js`) | `^2.117.1` | PostgreSQL database, Auth, RLS |
+| **Icons** | `lucide-react` + Custom SVG | `^1.48.0` | UI icons, official TAAM vector wordmark & motifs |
+| **Linter** | Oxlint | `^1.81.0` | High-speed Rust-based AST linter |
+| **Hosting** | Vercel | Edge Network | SPA hosting & HTTP security headers |
+
+---
+
+## 3. Architecture
+
+```text
 taam-club/
 ├── public/
-│   ├── favicon.svg
-│   ├── robots.txt
-│   ├── sitemap.xml
-│   └── llms.txt              # GEO/AEO AI crawler file
+│   ├── favicon.svg                  # Official TAAM vector icon on #002664 background
+│   ├── taam-logo.svg                # Official TAAM vector wordmark (extracted from brand PDF)
+│   ├── llms.txt                     # Machine-readable knowledge graph for AI search engines
+│   ├── robots.txt                   # Search & AI crawler access directives (/admin disallowed)
+│   └── sitemap.xml                  # Bilingual XML sitemap with hreflang alternates
 ├── src/
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Layout.tsx
-│   │   │   └── Footer.tsx
-│   │   └── navigation/
-│   │       └── Navbar.tsx
+│   │   │   ├── Layout.tsx           # Shared public wrapper (Navbar + <Outlet /> + Footer)
+│   │   │   └── Footer.tsx           # Brand watermark, navigation, contact, TR/EN toggle
+│   │   ├── navigation/
+│   │   │   └── Navbar.tsx           # Sticky responsive header + mobile drawer
+│   │   ├── seo/
+│   │   │   └── SEOHead.tsx          # Dynamic meta tags, Open Graph, hreflang, JSON-LD @graph
+│   │   └── ui/
+│   │       ├── Icons.tsx            # Custom SVG social icons
+│   │       └── Logo.tsx             # Official TaamLogo vector & 6 Anatolian TaamMotifs
 │   ├── data/
-│   │   └── demo.ts           # Fallback data (no Supabase needed for dev)
+│   │   └── demo.ts                  # Complete 8-category, 62-item menu fallback dataset
 │   ├── hooks/
-│   │   └── useLang.ts        # Language store (Zustand)
+│   │   └── useLang.ts               # Zustand store syncing i18next & document.documentElement.lang
 │   ├── i18n/
-│   │   └── index.ts          # TR/EN translations
+│   │   └── index.ts                 # Complete TR and EN translation dictionaries
 │   ├── lib/
 │   │   └── supabase/
-│   │       ├── client.ts     # Supabase client
-│   │       └── queries.ts    # All data access functions
+│   │       ├── client.ts            # Supabase client initialization + Demo Mode detection
+│   │       └── queries.ts           # Data access layer (Supabase + local fallback store)
 │   ├── pages/
-│   │   ├── HomePage.tsx
-│   │   ├── MenuPage.tsx
-│   │   ├── AboutPage.tsx
-│   │   ├── ContactPage.tsx
-│   │   ├── AdminPage.tsx
-│   │   └── NotFoundPage.tsx
+│   │   ├── HomePage.tsx             # Hero parallax, signature items, Instagram grid, FAQ
+│   │   ├── MenuPage.tsx             # Sticky category tabs, itemized menu, variants, Menu JSON-LD
+│   │   ├── AboutPage.tsx            # Brand story, stats, mission, values, specifications
+│   │   ├── CareerPage.tsx           # Open roles, KVKK consent checkbox, mailto application form
+│   │   ├── ContactPage.tsx          # Contact cards, Google Maps iframe, hours specification table
+│   │   ├── AdminPage.tsx            # Supabase Auth login & CRUD managers (Products/Categories/IG/Settings)
+│   │   └── NotFoundPage.tsx         # 404 page with noindex directive
 │   ├── types/
-│   │   └── index.ts
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css             # Design system + Tailwind
+│   │   └── index.ts                 # TypeScript interfaces (Category, Product, ProductVariant, etc.)
+│   ├── App.tsx                      # Router configuration with React.lazy + Suspense code splitting
+│   ├── main.tsx                     # React 19 root mount
+│   └── index.css                    # Design system tokens (@theme), typography & utility classes
 ├── supabase/
 │   └── migrations/
-│       └── 001_init.sql      # Full DB migration
-├── .env.example
-├── vercel.json
-└── vite.config.ts
+│       └── 001_init.sql             # PostgreSQL schema, indexes, triggers, RLS policies & seed data
+├── docs/                            # Comprehensive Audit, KVKK, Security, SEO/GEO & Deployment docs
+├── .env.example                     # Environment variable template
+├── .oxlintrc.json                   # Linter rules configuration
+├── vercel.json                      # Security headers, asset caching & SPA rewrite rules
+└── vite.config.ts                   # Vite bundler & @ path alias configuration
 ```
+
+### Data Flow & Fallback Mechanism
+1. `src/lib/supabase/client.ts` inspects `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+2. If valid credentials are provided (`isSupabaseConfigured === true`), `src/lib/supabase/queries.ts` executes live queries against Supabase PostgreSQL tables (`categories`, `products`, `instagram_posts`, `site_settings`).
+3. If credentials are omitted or set to placeholders (`isSupabaseConfigured === false`), the app runs seamlessly in **Demo Mode**, serving the complete menu and brand data from `src/data/demo.ts`.
 
 ---
 
-## Local Development
+## 4. Installation & Local Development
 
-### 1. Clone and install
+### Prerequisites
+- **Node.js**: v20.x LTS or newer (v22+ recommended)
+- **npm**: v10.x or newer
+
+### Step-by-Step Setup
 
 ```bash
-git clone https://github.com/your-org/taam-club.git
+# 1. Clone the repository
+git clone https://github.com/mhdsamerallaham/TAAM-Club.git
 cd taam-club
+
+# 2. Install dependencies
 npm install
-```
 
-### 2. Environment variables
-
-```bash
+# 3. Create local environment file
 cp .env.example .env.local
-```
 
-Edit `.env.local`:
-
-```
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key-here
-```
-
-> **Note:** The website works without Supabase — it uses demo data as fallback. You only need Supabase for the admin panel and live menu data.
-
-### 3. Run dev server
-
-```bash
+# 4. Start development server with HMR
 npm run dev
 ```
 
-Visit: http://localhost:5173
+The application will be available at `http://localhost:5173`.
 
-### 4. Build
+### Available Scripts
 
-```bash
-npm run build
-```
-
-### 5. Preview production build
-
-```bash
-npm run preview
-```
+| Command | Description |
+|---|---|
+| `npm run dev` | Starts local Vite development server on port `5173` |
+| `npm run build` | Runs TypeScript project references check (`tsc -b`) and builds production bundle (`dist/`) |
+| `npm run lint` | Runs `oxlint` static analysis across all TypeScript/React files |
+| `npm run preview` | Locally serves the production build from `dist/` |
 
 ---
 
-## Supabase Setup
+## 5. Environment Variables
 
-### 1. Create a Supabase project
+Create a `.env.local` file in the root directory (never commit `.env` or `.env.local` to Git):
 
-Go to https://supabase.com and create a new project.
+| Variable | Required | Scope | Description |
+|---|---|---|---|
+| `VITE_SUPABASE_URL` | Required for Production CMS | Public (Client) | Your Supabase project URL (`https://<project-ref>.supabase.co`) |
+| `VITE_SUPABASE_ANON_KEY` | Required for Production CMS | Public (Client) | Your Supabase public anonymous JWT key |
 
-### 2. Run migrations
-
-In the Supabase SQL Editor, paste and run the contents of:
-
-```
-supabase/migrations/001_init.sql
-```
-
-This creates:
-- `categories` table
-- `products` table
-- `instagram_posts` table
-- `site_settings` table
-- All Row Level Security (RLS) policies
-- Demo seed data
-
-### 3. Create admin user
-
-In Supabase Authentication > Users, create a new user with email/password. This user will have full admin access.
-
-### 4. Get API keys
-
-In Supabase > Settings > API:
-- **Project URL** → `VITE_SUPABASE_URL`
-- **anon public key** → `VITE_SUPABASE_ANON_KEY`
-
-> ⚠️ **NEVER** use the `service_role` key in the frontend. Only use the `anon` key.
+> **Security Warning:** All variables prefixed with `VITE_` are embedded into the client-side JavaScript bundle. **NEVER** place the Supabase `service_role` secret key or database passwords in any `VITE_*` variable or frontend file.
 
 ---
 
-## Admin Panel
+## 6. Database Setup (Supabase)
 
-URL: `/admin`
-
-Authentication: Supabase Auth (email + password)
-
-Features:
-- **Products** — Full CRUD for menu items
-- **Categories** — Manage menu categories
-- **Instagram** — Add/manage Instagram gallery posts
-- **Settings** — Address, phone, hours, email, maps URL
-
----
-
-## Database Schema
-
-### categories
-| Column | Type | Description |
-|---|---|---|
-| id | UUID | Primary key |
-| name_tr | TEXT | Turkish name |
-| name_en | TEXT | English name |
-| slug | TEXT | URL slug (unique) |
-| sort_order | INT | Display order |
-| is_active | BOOLEAN | Public visibility |
-
-### products
-| Column | Type | Description |
-|---|---|---|
-| id | UUID | Primary key |
-| category_id | UUID | FK to categories |
-| name_tr / name_en | TEXT | Bilingual name |
-| description_tr / description_en | TEXT | Bilingual description |
-| price | DECIMAL | Price in TRY |
-| image_url | TEXT | Image URL |
-| is_featured | BOOLEAN | Show on homepage |
-| is_new / is_signature / is_spicy / is_vegetarian | BOOLEAN | Product tags |
-
-### instagram_posts
-| Column | Type | Description |
-|---|---|---|
-| id | UUID | Primary key |
-| image_url | TEXT | Image URL |
-| instagram_url | TEXT | Link to post |
-| caption_tr / caption_en | TEXT | Bilingual caption |
-| sort_order | INT | Display order |
-
-### site_settings
-Key-value store for configurable site content.
+1. Create a new project in [Supabase Dashboard](https://supabase.com/dashboard).
+2. Navigate to **SQL Editor** and execute `supabase/migrations/001_init.sql`.
+3. Verify the 4 tables are created with Row Level Security (RLS) enabled:
+   - `public.categories`
+   - `public.products` (includes `portion TEXT` and `variants JSONB`)
+   - `public.instagram_posts`
+   - `public.site_settings`
+4. **Harden Admin Authentication**:
+   - In Supabase Dashboard → **Authentication → Providers → Email**, **disable** "Allow new users to sign up" (Public Signups) so only manually invited administrators have `authenticated` role access, **AND** apply the role-based RLS policy documented in `docs/DATA_SECURITY_POLICY.md`.
+5. In **Authentication → Users**, create your admin user account (`info@taamclub.com`).
 
 ---
 
-## Bilingual System (TR / EN)
+## 7. API / Data Access Documentation
 
-- **Default language:** Turkish
-- **Language toggle:** TR | EN in navbar and footer
-- **Static text:** `src/i18n/index.ts`
-- **Dynamic content:** DB fields `name_tr/en`, `description_tr/en`
-- **Language state:** Zustand store in `src/hooks/useLang.ts`
+All database operations are encapsulated in `src/lib/supabase/queries.ts`:
 
----
-
-## SEO Implementation
-
-Every page has:
-- Unique `<title>` and `<meta description>`
-- Open Graph tags
-- Canonical URLs
-- JSON-LD structured data (Restaurant, LocalBusiness)
-- Semantic HTML (h1 hierarchy, ARIA labels)
-
-SEO files:
-- `public/robots.txt` — with admin protection + AI crawler rules
-- `public/sitemap.xml` — with hreflang alternates
-- `public/llms.txt` — machine-readable business description for AI search
+| Function | Method / Table | Access Level | Description |
+|---|---|---|---|
+| `getCategories()` | `SELECT` `categories` (`is_active = true`) | Public (`anon`) | Fetches active menu categories ordered by `sort_order` |
+| `getAllCategories()` | `SELECT` `categories` | Admin (`authenticated`) | Fetches all categories including inactive ones |
+| `upsertCategory(cat)` | `UPSERT` `categories` | Admin (`authenticated`) | Creates or updates a category |
+| `deleteCategory(id)` | `DELETE` `categories` | Admin (`authenticated`) | Deletes a category by UUID |
+| `getProducts(slug?)` | `SELECT` `products` + `categories` | Public (`anon`) | Fetches active products, optionally filtered by category slug |
+| `getFeaturedProducts()` | `SELECT` `products` (`is_featured = true`) | Public (`anon`) | Fetches up to 6 featured products for the homepage |
+| `getAllProducts()` | `SELECT` `products` + `categories` | Admin (`authenticated`) | Fetches all products for CMS table |
+| `upsertProduct(prod)` | `UPSERT` `products` | Admin (`authenticated`) | Creates or updates a product record |
+| `deleteProduct(id)` | `DELETE` `products` | Admin (`authenticated`) | Deletes a product by UUID |
+| `getInstagramPosts()` | `SELECT` `instagram_posts` (`is_active = true`) | Public (`anon`) | Fetches active Instagram gallery items |
+| `getAllInstagramPosts()` | `SELECT` `instagram_posts` | Admin (`authenticated`) | Fetches all Instagram gallery items |
+| `upsertInstagramPost(post)`| `UPSERT` `instagram_posts` | Admin (`authenticated`) | Creates or updates an Instagram post card |
+| `deleteInstagramPost(id)` | `DELETE` `instagram_posts` | Admin (`authenticated`) | Deletes an Instagram post card |
+| `getSiteSettings()` | `SELECT` `site_settings` | Public (`anon`) | Returns key-value map of site settings |
+| `updateSiteSetting(k, v)` | `UPSERT` `site_settings` | Admin (`authenticated`) | Updates a site setting key-value pair |
 
 ---
 
-## GEO / AEO (AI Search Optimization)
+## 8. Deployment Instructions (Vercel)
 
-Prepared for:
-- Google AI Overviews
-- ChatGPT Search
-- Perplexity
-- Claude, Gemini
-
-Implementation:
-- `llms.txt` with entity description
-- JSON-LD Restaurant schema on home + contact pages
-- Clear semantic HTML with entity information
-- AI crawler permissions in `robots.txt`
+1. Push the repository to GitHub (`main` branch).
+2. Import the repository into **Vercel**.
+3. Configure **Framework Preset**: `Vite`, **Build Command**: `npm run build`, **Output Directory**: `dist`.
+4. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` under **Project Settings → Environment Variables**.
+5. Deploy and attach custom domain `taamclub.com` (and redirect `www.taamclub.com` → `taamclub.com`).
+6. `vercel.json` automatically configures SPA routing rewrites, immutable asset caching (`/assets/*`), and security headers (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`).
 
 ---
 
-## Vercel Deployment
+## 9. Security & Legal Documentation Index
 
-### 1. Connect repository
+Detailed audit, compliance, and operational governance documents are maintained in the `/docs` directory:
 
-Push to GitHub, then connect to Vercel.
-
-### 2. Configure environment variables
-
-In Vercel Project > Settings > Environment Variables:
-
-```
-VITE_SUPABASE_URL = https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY = your-anon-key
-```
-
-### 3. Deploy
-
-Vercel auto-deploys on push to main. SPA routing is handled by `vercel.json`.
-
-### 4. Custom domain
-
-In Vercel > Domains, add your custom domain (e.g., `taamclub.com`).
+- [`docs/FINAL_AUDIT.md`](./docs/FINAL_AUDIT.md) — Complete Architecture, Security, KVKK, SEO/GEO & Performance Audit Report
+- [`docs/KVKK_AYDINLATMA_METNI.md`](./docs/KVKK_AYDINLATMA_METNI.md) — KVKK General & Job Applicant Privacy Notices (Aydınlatma Metni)
+- [`docs/DATA_SECURITY_POLICY.md`](./docs/DATA_SECURITY_POLICY.md) — Technical & Administrative Data Security Policy + RLS Hardening SQL
+- [`docs/DATA_BREACH_RESPONSE_PLAN.md`](./docs/DATA_BREACH_RESPONSE_PLAN.md) — 10-Step KVKK Incident & Data Breach Response Plan
+- [`docs/COMMERCIAL_COMMUNICATION_CONSENT.md`](./docs/COMMERCIAL_COMMUNICATION_CONSENT.md) — Commercial Electronic Communication (ETK / İYS) Framework
+- [`docs/PRE_INFORMATION_FORM.md`](./docs/PRE_INFORMATION_FORM.md) — Conditional Distance Sales Pre-Information Form Template
+- [`docs/SEO_GEO_AUDIT.md`](./docs/SEO_GEO_AUDIT.md) — Technical SEO, Structured Data & Generative Engine Optimization Audit
+- [`docs/PRODUCTION_DEPLOYMENT_CHECKLIST.md`](./docs/PRODUCTION_DEPLOYMENT_CHECKLIST.md) — Pre-Launch & Post-Launch Verification Checklist
+- [`docs/BUSINESS_INPUT_REQUIRED.md`](./docs/BUSINESS_INPUT_REQUIRED.md) — Consolidated Register of Pending Business & Legal Inputs
 
 ---
 
-## Google Search Console Setup
+## 10. Maintenance Instructions
 
-1. Go to https://search.google.com/search-console
-2. Add your Vercel domain as property
-3. Verify via HTML meta tag or DNS
-4. Submit sitemap: `https://taamclub.com/sitemap.xml`
-5. Monitor:
-   - Coverage
-   - Core Web Vitals
-   - Mobile Usability
-
----
-
-## Instagram Integration
-
-**Current:** Supabase-managed gallery (admin adds posts manually)
-
-**Future:** Official Meta/Instagram Basic Display API
-
-Architecture for future API integration:
-1. Create a Meta App with `instagram_basic` permission
-2. Get access token via OAuth
-3. Replace `getInstagramPosts()` in `src/lib/supabase/queries.ts` with Meta API call
-4. Fall back to Supabase gallery if API fails
-
----
-
-## Analytics Architecture
-
-The codebase is prepared for analytics without activating tracking:
-
-Analytics events to implement:
-- `menu_view` — Menu page loaded
-- `menu_category_click` — Category filter clicked
-- `product_view` — Product card hovered/tapped
-- `instagram_click` — Instagram gallery clicked
-- `google_maps_click` — Maps link clicked
-- `phone_click` — Phone link clicked
-- `language_change` — TR/EN toggle
-
-Add to `src/lib/analytics/index.ts` when ready:
-- Google Analytics 4
-- Meta Pixel
-- Google Tag Manager
-
----
-
-## Performance Notes
-
-- Lazy loading on all images
-- Framer Motion respects `prefers-reduced-motion`
-- Tailwind CSS v4 with minimal bundle
-- No unused dependencies
-- Code splitting via React Router lazy() (future optimization)
-
----
-
-## Future Improvements
-
-- [ ] Official Instagram API integration
-- [ ] Image uploads via Supabase Storage
-- [ ] React.lazy() code splitting per page
-- [ ] Dynamic sitemap generation
-- [ ] PWA manifest
-- [ ] Google Analytics 4
-- [ ] Meta Pixel
-- [ ] URL-based language routing (/tr/, /en/)
-- [ ] Menu search/filter
-- [ ] Product detail modal
-- [ ] Online order link
-
----
-
-## License
-
-Private. All rights reserved. TAAM Club © 2024.
+- **Updating Menu Items**: Log in at `/admin` when Supabase is connected, or update `src/data/demo.ts` if running in static mode. Keep `public/llms.txt` synchronized when signature prices change.
+- **Dependency Updates**: Run `npm outdated` and `npm audit` monthly; verify builds with `npm run lint && npm run build`.
+- **Database Backups**: Enable daily automated backups in Supabase Dashboard (Pro plan) or schedule weekly `pg_dump` exports of `categories`, `products`, `instagram_posts`, and `site_settings`.

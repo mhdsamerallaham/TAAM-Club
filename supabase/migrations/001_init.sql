@@ -29,6 +29,8 @@ CREATE TABLE IF NOT EXISTS products (
   description_tr TEXT,
   description_en TEXT,
   price DECIMAL(10,2) NOT NULL DEFAULT 0,
+  portion TEXT,
+  variants JSONB DEFAULT '[]'::jsonb,
   image_url TEXT,
   sort_order INT DEFAULT 0,
   is_featured BOOLEAN DEFAULT false,
@@ -84,14 +86,13 @@ CREATE TABLE IF NOT EXISTS site_settings (
 
 -- Default settings
 INSERT INTO site_settings (key, value) VALUES
-  ('address', 'Güzide Mertcan, Istanbul, Türkiye'),
-  ('phone', '+90 500 000 00 00'),
-  ('email', 'merhaba@taamclub.com'),
+  ('address', 'İstanbul, Türkiye'),
+  ('email', 'info@taamclub.com'),
   ('instagram_url', 'https://www.instagram.com/taamclub/'),
-  ('google_maps_url', 'https://maps.google.com'),
+  ('google_maps_url', 'https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7'),
   ('opening_hours', 'Pazartesi–Cuma: 11:00–22:00\nCumartesi–Pazar: 10:00–23:00'),
-  ('meta_title', 'TAAM Club | İyi Yemek. İyi Enerji. | Istanbul'),
-  ('meta_description', 'TAAM Club – Premium burgerler, çıtır tavuk, özel tarifler. İstanbul''da lezzetin kalbi.')
+  ('meta_title', 'TAAM Club | Good sofra, better days | Istanbul'),
+  ('meta_description', 'TAAM Club – Premium smash burgerler, çıtır tavuk, taş fırın pizza ve özel tarifler. İstanbul''da lezzetin kalbi.')
 ON CONFLICT (key) DO NOTHING;
 
 -- =====================================================

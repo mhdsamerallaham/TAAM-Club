@@ -2,7 +2,7 @@ import SEOHead from '@/components/seo/SEOHead';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLangStore } from '@/hooks/useLang';
-import { MapPin, Clock, Phone, Mail, ArrowUpRight, ExternalLink } from 'lucide-react';
+import { MapPin, Clock, Mail, ArrowUpRight, ExternalLink } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/Icons';
 
 export default function ContactPage() {
@@ -55,7 +55,7 @@ export default function ContactPage() {
     <>
       <SEOHead
         title={lang === 'tr' ? 'İletişim & Konum Bilgileri | TAAM Club Istanbul' : 'Contact & Location Info | TAAM Club Istanbul'}
-        description={lang === 'tr' ? "TAAM Club iletişim bilgileri, adres, telefon ve çalışma saatleri. İstanbul'da lezzetin kalbine yol tarifi alın ve bizi ziyaret edin." : "Contact details, address, phone number, and hours for TAAM Club. Get directions to Istanbul's premier gourmet burger restaurant."}
+        description={lang === 'tr' ? "TAAM Club iletişim bilgileri, adres, e-posta ve çalışma saatleri. İstanbul'da lezzetin kalbine yol tarifi alın ve bizi ziyaret edin." : "Contact details, address, email, and hours for TAAM Club. Get directions to Istanbul's premier gourmet burger restaurant."}
         canonicalPath="/contact"
         breadcrumbs={[
           { name: lang === 'tr' ? 'Ana Sayfa' : 'Home', item: '/' },

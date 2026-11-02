@@ -703,15 +703,14 @@ function SettingsManager() {
 // ─── ADMIN PAGE ────────────────────────────────────
 export default function AdminPage() {
   const { t } = useTranslation();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() =>
+    !isSupabaseConfigured ? localStorage.getItem('taam_demo_auth') === 'true' : false
+  );
   const [activeTab, setActiveTab] = useState<AdminTab>('products');
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => isSupabaseConfigured);
 
   useEffect(() => {
     if (!isSupabaseConfigured) {
-      const demoAuth = localStorage.getItem('taam_demo_auth') === 'true';
-      setIsAuthenticated(demoAuth);
-      setLoading(false);
       return;
     }
     supabase.auth.getSession().then(({ data: { session } }) => {

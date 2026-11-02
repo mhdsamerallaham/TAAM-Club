@@ -63,7 +63,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       '@id': `${SITE_URL}/#organization`,
       'name': BRAND_NAME,
       'url': SITE_URL,
-      'logo': `${SITE_URL}/favicon.svg`,
+      'logo': `${SITE_URL}/taam-logo.svg`,
       'image': DEFAULT_IMAGE,
       'description': 'Premium smash burgerler, çıtır tavuk ve kanatlar, taş fırın pizza ve gurme tatlılar sunan modern restoran.',
       'email': 'info@taamclub.com',
@@ -148,7 +148,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       <link rel="canonical" href={canonicalUrl} />
       <link rel="alternate" hrefLang="tr" href={trAlternate} />
       <link rel="alternate" hrefLang="en" href={enAlternate} />
-      <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
+      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
 
       {/* Open Graph */}
       <meta property="og:site_name" content={BRAND_NAME} />

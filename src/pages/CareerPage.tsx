@@ -3,7 +3,7 @@ import SEOHead from '@/components/seo/SEOHead';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLangStore } from '@/hooks/useLang';
-import { Briefcase, Send, CheckCircle2, Clock, MapPin, Sparkles, Heart, Users, UtensilsCrossed } from 'lucide-react';
+import { Send, CheckCircle2, Clock, MapPin, Sparkles, Users, UtensilsCrossed } from 'lucide-react';
 import { TaamMotifs } from '@/components/ui/Logo';
 
 interface JobPosition {
@@ -88,10 +88,12 @@ export default function CareerPage() {
     message: '',
   });
 
+  const [kvkkAccepted, setKvkkAccepted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!kvkkAccepted) return;
     // Pre-populate mailto link or trigger local submit
     const subject = encodeURIComponent(`İş Başvurusu: ${formData.position} - ${formData.fullName}`);
     const body = encodeURIComponent(
@@ -417,9 +419,25 @@ export default function CareerPage() {
                     />
                   </div>
 
+                  <label className="flex items-start gap-2.5 cursor-pointer pt-1">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={kvkkAccepted}
+                      onChange={(e) => setKvkkAccepted(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded accent-taam-blue flex-shrink-0"
+                    />
+                    <span className="text-[11px] text-taam-gray leading-relaxed">
+                      {lang === 'tr'
+                        ? '6698 sayılı KVKK kapsamında iş başvurumun değerlendirilmesi amacıyla kimlik, iletişim ve mesleki deneyim verilerimin işlenmesine ilişkin Çalışan Adayı Aydınlatma Metni’ni okudum ve anladım. *'
+                        : 'I have read and understood the Candidate Privacy Notice regarding the processing of my identity, contact, and professional experience data for evaluating my job application under KVKK No. 6698. *'}
+                    </span>
+                  </label>
+
                   <button
                     type="submit"
-                    className="btn-taam btn-taam-red w-full py-3.5 text-sm flex items-center justify-center gap-2"
+                    disabled={!kvkkAccepted}
+                    className="btn-taam btn-taam-red w-full py-3.5 text-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send size={15} />
                     {lang === 'tr' ? 'Başvuruyu Gönder' : 'Send Application'}

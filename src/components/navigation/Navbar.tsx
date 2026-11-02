@@ -20,10 +20,6 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [location]);
-
-  useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
@@ -164,6 +160,7 @@ export default function Navbar() {
                 >
                   <Link
                     to={link.href}
+                    onClick={() => setMenuOpen(false)}
                     className="block font-display text-white leading-none py-3 border-b border-white/10 hover:text-taam-red transition-colors"
                     style={{ fontSize: 'clamp(36px, 10vw, 56px)' }}
                   >
@@ -182,6 +179,7 @@ export default function Navbar() {
             >
               <Link
                 to="/menu"
+                onClick={() => setMenuOpen(false)}
                 className="btn-taam btn-taam-red w-full text-center text-base py-4"
               >
                 {t('nav.viewMenu')}
