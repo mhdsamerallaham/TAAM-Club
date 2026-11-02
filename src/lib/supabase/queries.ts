@@ -3,10 +3,10 @@ import { demoCategories, demoProducts, demoInstagramPosts } from '@/data/demo';
 import type { Category, Product, InstagramPost } from '@/types';
 
 const STORAGE_KEYS = {
-  categories: 'taam_local_categories_v1',
-  products: 'taam_local_products_v1',
-  instagram: 'taam_local_instagram_v1',
-  settings: 'taam_local_settings_v1',
+  categories: 'taam_local_categories_v2',
+  products: 'taam_local_products_v2',
+  instagram: 'taam_local_instagram_v2',
+  settings: 'taam_local_settings_v2',
 };
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
