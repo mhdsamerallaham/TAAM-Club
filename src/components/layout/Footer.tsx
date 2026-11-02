@@ -116,8 +116,17 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-white/40 text-xs font-accent">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-white/40 text-xs font-accent">
             <span>© {currentYear} TAAM Club. {t('footer.rights')}</span>
+            <span className="text-white/20">•</span>
+            <a
+              href="https://samer.life"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-white transition-colors underline underline-offset-4"
+            >
+              Made by Samer
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <button
