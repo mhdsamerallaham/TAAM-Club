@@ -6,82 +6,27 @@ interface LogoProps extends React.SVGProps<SVGSVGElement> {
 }
 
 /**
- * TAAM Wordmark — clean hand-crafted vector SVG
- *
- * Letter anatomy (from official brand identity guide):
- *   T  — Wide crossbar. Left end has a diagonal notch (top-left corner angled),
- *         giving the left tip a pointed appearance. Stem is centered.
- *   A  — Isosceles triangle with open bottom: triangular punch-out between the
- *         two legs at the baseline. Horizontal crossbar at ~58% height.
- *   M  — Four strokes: outer vertical legs + inner diagonals descending from the
- *         top of each outer leg to a shared center valley at the baseline.
- *
- * ViewBox: 520×100
- * Uses currentColor for fill — set via CSS color or the `color` prop.
- * The A cutouts are true transparent holes using clipPath, so the logo works
- * on any background color.
+ * Official TAAM Wordmark — Exact vector paths extracted directly from Taam_Logo.pdf
+ * ViewBox: 0 0 754.55 142.02
  */
+const OFFICIAL_TAAM_LOGO_PATH =
+  'M 741.62,121.17 L 754.26,141.9 L 702.3,141.81 L 715.16,121.92 L 714.83,40.57 L 647.28,141.71 L 627.7,142.02 L 560.37,40.81 L 560.09,141.98 L 512.43,141.78 L 439.15,27.79 L 364.57,141.8 L 332.71,141.96 L 259.29,27.81 L 184.63,141.9 L 154.95,141.61 L 249.32,0.14 L 301.44,0.02 L 285.5,25.14 L 348.83,120.47 L 412.63,24.99 L 396.98,0.01 L 448.78,0.12 L 533.35,127.36 L 533.59,24.09 L 518.42,0.24 L 563.85,0.17 L 637.21,114.13 L 711.82,0.13 L 754.55,0.06 L 741.7,19.98 Z ' +
+  'M 126.91,141.77 L 75.16,141.87 L 87.99,121.84 L 87.77,20.89 L 38.8,21.07 L 25.71,40.34 L 0.0,0.03 L 201.0,0.03 L 174.76,40.65 L 162.14,21.0 L 114.83,21.03 L 114.77,121.9 Z ' +
+  'M 466.14,141.63 L 414.09,141.83 L 440.48,101.42 Z ' +
+  'M 284.64,141.69 L 232.54,141.89 L 258.91,101.49 Z ' +
+  'M 663.69,0.18 L 637.39,40.54 L 611.33,0.0 Z';
+
 export function TaamLogo({ className = 'h-8 w-auto', color = 'currentColor', ...props }: LogoProps) {
   return (
     <svg
-      viewBox="0 0 520 100"
+      viewBox="0 0 754.55 142.02"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-label="TAAM"
       role="img"
       {...props}
     >
-      <defs>
-        {/* ClipPath for first A: punches out the bottom triangle */}
-        <clipPath id="taam-a1-clip">
-          <path d="M163,0 L210,100 L192,100 L163,32 L134,100 L116,100 Z M137,58 L189,58 L189,74 L137,74 Z" />
-          {/* The solid crossbar area stays, the bottom cutout is excluded via even-odd */}
-        </clipPath>
-        {/* ClipPath for second A */}
-        <clipPath id="taam-a2-clip">
-          <path d="M273,0 L320,100 L302,100 L273,32 L244,100 L226,100 Z M247,58 L299,58 L299,74 L247,74 Z" />
-        </clipPath>
-      </defs>
-
-      {/* ── T ─────────────────────────────────────────────────────────── */}
-      {/* Crossbar: left end angled (notch at top-left), right end flat, stem centered */}
-      <path
-        fill={color}
-        d="M16,0 L100,0 L100,20 L72,20 L72,100 L56,100 L56,20 L0,20 Z"
-      />
-
-      {/* ── A (first) ──────────────────────────────────────────────────── */}
-      {/* Full shape: outer triangle + crossbar combined, with bottom cutout via even-odd rule */}
-      <path
-        fill={color}
-        fillRule="evenodd"
-        d="
-          M163,0 L210,100 L116,100 Z
-          M137,74 L137,58 L189,58 L189,74 Z
-          M163,58 L186,100 L140,100 Z
-        "
-      />
-
-      {/* ── A (second) ─────────────────────────────────────────────────── */}
-      <path
-        fill={color}
-        fillRule="evenodd"
-        d="
-          M273,0 L320,100 L226,100 Z
-          M247,74 L247,58 L299,58 L299,74 Z
-          M273,58 L296,100 L250,100 Z
-        "
-      />
-
-      {/* ── M ──────────────────────────────────────────────────────────── */}
-      {/* Outer-left vertical leg */}
-      <rect fill={color} x="336" y="0" width="18" height="100" />
-      {/* Inner-left diagonal */}
-      <path fill={color} d="M354,0 L374,0 L447,100 L427,100 Z" />
-      {/* Inner-right diagonal */}
-      <path fill={color} d="M482,0 L502,0 L449,100 L429,100 Z" />
-      {/* Outer-right vertical leg */}
-      <rect fill={color} x="502" y="0" width="18" height="100" />
+      <path fill={color} d={OFFICIAL_TAAM_LOGO_PATH} />
     </svg>
   );
 }
