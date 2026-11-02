@@ -72,3 +72,4 @@ Web sitesinin **ChatGPT Search (OAI-SearchBot)**, **Google AI Overviews**, **Per
    - Yapay zekâ arama motorlarının (GEO) yerel işletme varlığını (Entity Resolution) yüksek güven skoruyla doğrulayabilmesi için **resmî açık adres (Mahalle, Cadde, No, İlçe, Posta Kodu)** ve **tam GPS koordinatları** tüm dosyalarda (`SEOHead.tsx`, `llms.txt`, `ContactPage.tsx`, `HomePage.tsx`) birebir aynı olmalıdır.
 2. **İstemci Tarafı Render (CSR) Kısıtı:**
    - Uygulama Vite + React SPA olarak çalıştığından, JavaScript çalıştırmayan basit HTTP botları yalnızca `index.html` içindeki başlangıç meta etiketlerini ve `public/llms.txt` dosyasını görür. Googlebot ve modern arama motorları JS render edebilmektedir; ancak AI botları için `public/llms.txt` dosyasının güncel tutulması kritik önem taşır.
+

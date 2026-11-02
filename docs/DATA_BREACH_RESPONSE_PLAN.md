@@ -81,3 +81,4 @@ Teknik Müdahale Sorumlusu olayın niteliğini değerlendirir:
 ### Aşama 10: Olay Sonrası Değerlendirme (Post-Incident Review) — `[T0 + 14 Gün İçinde]`
 - Olayın tekrarlanmaması için alınacak kalıcı teknik ve idari önlemler belirlenir.
 - `docs/DATA_SECURITY_POLICY.md` ve erişim politikaları güncellenir.
+

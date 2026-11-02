@@ -37,3 +37,4 @@ Bu belge, denetim sırasında uydurulmaması (fabricate edilmemesi) gereken ve d
 | **10** | **Çalışan Adayı Özgeçmiş Saklama Süresi** | `docs/KVKK_AYDINLATMA_METNI.md` Bölüm 3 | Taslakta boş bırakıldı | `[REQUIRES BUSINESS INPUT: Olumsuz sonuçlanan iş başvurularının saklanma süresi, örn. 6 ay veya 1 yıl]` |
 | **11** | **Telifli Ürün Fotoğrafları** | `src/data/demo.ts`, `index.html` (`og:image`), Supabase `products` | Unsplash stok görselleri kullanılıyor | `[REQUIRES BUSINESS INPUT: TAAM Club'a ait gerçek ürün fotoğrafları ve 1200x630 Open Graph görseli]` |
 | **12** | **Google Search Console Doğrulama Kodu** | `index.html` veya DNS TXT kaydı | Henüz eklenmedi | `[REQUIRES BUSINESS INPUT: google-site-verification kodu]` |
+

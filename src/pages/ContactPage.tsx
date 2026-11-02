@@ -156,7 +156,7 @@ export default function ContactPage() {
               loading="lazy"
               referrerPolicy="strict-origin-when-cross-origin"
               title="TAAM Google Maps Konumu"
-              className="w-full h-[400px] md:h-[480px]"
+              className="w-full h-[320px] sm:h-[400px] md:h-[480px]"
             />
           </div>
 
@@ -166,7 +166,7 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="bg-taam-charcoal rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 mt-8"
+            className="bg-taam-charcoal rounded-2xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mt-8"
           >
             <div>
               <div className="font-accent text-white/50 text-xs uppercase tracking-widest mb-2">{t('contact.directions')}</div>

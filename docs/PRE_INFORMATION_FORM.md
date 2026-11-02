@@ -62,3 +62,4 @@
 | **Ön Bilgilendirme Formu** | **HAYIR** (Online satış yok) | **EVET** (Online sipariş eklenirse) | Bu belgede taslağı hazırlandı. |
 | **Mesafeli Satış Sözleşmesi** | **HAYIR** (Online satış yok) | **EVET** (Online sipariş eklenirse) | Online sipariş modülü devreye alınırken eklenecek. |
 | **İptal ve İade Politikası** | **HAYIR** (Online ödeme yok) | **EVET** (Online ödeme eklenirse) | Online ödeme entegrasyonu sırasında eklenecek. |
+

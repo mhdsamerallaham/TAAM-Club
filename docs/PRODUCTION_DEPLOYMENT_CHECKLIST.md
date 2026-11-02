@@ -54,3 +54,4 @@
 - [ ] **4. Google Search Console & Bing Webmaster Tools:**
   - `https://taamclub.com` mülkü doğrulandı.
   - `https://taamclub.com/sitemap.xml` site haritası gönderildi.
+

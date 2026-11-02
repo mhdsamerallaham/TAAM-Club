@@ -89,3 +89,4 @@ WHERE email = 'info@taamclub.com';
    - Kariyer başvuruları sunucu veritabanında açık metin olarak bekletilmez; doğrudan başvuru sahibinin e-posta istemcisinden kurumsal e-posta adresine iletilir.
 3. **Çalışan Adayı Verilerinin İmhası:**
    - `info@taamclub.com` adresine gelen özgeçmiş ve iş başvurusu e-postaları, işe alım süreci tamamlandıktan veya belirlenen saklama süresi (`[REQUIRES BUSINESS INPUT: Örn. 6 ay]`) dolduktan sonra e-posta kutusundan ve yedeklerden kalıcı olarak silinir.
+

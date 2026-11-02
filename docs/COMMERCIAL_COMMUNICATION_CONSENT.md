@@ -71,3 +71,4 @@ CREATE TABLE IF NOT EXISTS marketing_consents (
 
 ALTER TABLE marketing_consents ENABLE ROW LEVEL SECURITY;
 ```
+

@@ -138,9 +138,9 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
 // ─── Toast ────────────────────────────────────
 function Toast({ message, type }: { message: string; type: 'success' | 'error' }) {
   return (
-    <div className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-lg shadow-lg font-accent text-sm text-white ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
-      {type === 'success' ? <Check size={14} /> : <AlertTriangle size={14} />}
-      {message}
+    <div className={`fixed bottom-4 right-4 left-4 sm:left-auto sm:bottom-6 sm:right-6 z-50 flex items-center gap-2 px-4 py-3 rounded-lg shadow-lg font-accent text-sm text-white ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}>
+      {type === 'success' ? <Check size={14} className="flex-shrink-0" /> : <AlertTriangle size={14} className="flex-shrink-0" />}
+      <span className="truncate">{message}</span>
     </div>
   );
 }
@@ -334,7 +334,7 @@ function ProductsManager() {
       {/* Products Table */}
       <div className="admin-card overflow-hidden p-0">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm min-w-[540px]">
             <thead>
               <tr className="border-b border-gray-100 bg-taam-off-white">
                 <th className="text-left p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">Ürün</th>
@@ -495,34 +495,36 @@ function CategoriesManager() {
       )}
 
       <div className="admin-card p-0 overflow-hidden">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-100 bg-taam-off-white">
-              <th className="text-left p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">Kategori</th>
-              <th className="text-left p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">Slug</th>
-              <th className="text-left p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">Sıra</th>
-              <th className="text-right p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">İşlemler</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((cat) => (
-              <tr key={cat.id} className="border-b border-gray-50 hover:bg-taam-off-white/50">
-                <td className="p-3">
-                  <div className="font-accent font-600 text-taam-charcoal">{cat.name_tr}</div>
-                  <div className="font-accent text-taam-gray text-xs">{cat.name_en}</div>
-                </td>
-                <td className="p-3 font-accent text-taam-gray text-xs font-mono">{cat.slug}</td>
-                <td className="p-3 font-accent text-taam-charcoal">{cat.sort_order}</td>
-                <td className="p-3 text-right">
-                  <div className="flex gap-2 justify-end">
-                    <button onClick={() => setEditing(cat)} className="w-8 h-8 rounded-lg bg-taam-off-white hover:bg-taam-blue hover:text-white text-taam-charcoal flex items-center justify-center transition-colors" aria-label={`${cat.name_tr} düzenle`}><Pencil size={13} /></button>
-                    <button onClick={() => setDeleteId(cat.id)} className="w-8 h-8 rounded-lg bg-taam-off-white hover:bg-red-600 hover:text-white text-taam-charcoal flex items-center justify-center transition-colors" aria-label={`${cat.name_tr} sil`}><Trash2 size={13} /></button>
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm min-w-[440px]">
+            <thead>
+              <tr className="border-b border-gray-100 bg-taam-off-white">
+                <th className="text-left p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">Kategori</th>
+                <th className="text-left p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">Slug</th>
+                <th className="text-left p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">Sıra</th>
+                <th className="text-right p-3 font-accent font-600 text-taam-gray text-xs uppercase tracking-wide">İşlemler</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {categories.map((cat) => (
+                <tr key={cat.id} className="border-b border-gray-50 hover:bg-taam-off-white/50">
+                  <td className="p-3">
+                    <div className="font-accent font-600 text-taam-charcoal">{cat.name_tr}</div>
+                    <div className="font-accent text-taam-gray text-xs">{cat.name_en}</div>
+                  </td>
+                  <td className="p-3 font-accent text-taam-gray text-xs font-mono">{cat.slug}</td>
+                  <td className="p-3 font-accent text-taam-charcoal">{cat.sort_order}</td>
+                  <td className="p-3 text-right">
+                    <div className="flex gap-2 justify-end">
+                      <button onClick={() => setEditing(cat)} className="w-8 h-8 rounded-lg bg-taam-off-white hover:bg-taam-blue hover:text-white text-taam-charcoal flex items-center justify-center transition-colors" aria-label={`${cat.name_tr} düzenle`}><Pencil size={13} /></button>
+                      <button onClick={() => setDeleteId(cat.id)} className="w-8 h-8 rounded-lg bg-taam-off-white hover:bg-red-600 hover:text-white text-taam-charcoal flex items-center justify-center transition-colors" aria-label={`${cat.name_tr} sil`}><Trash2 size={13} /></button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
@@ -761,9 +763,48 @@ export default function AdminPage() {
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <div className="min-h-screen bg-taam-off-white flex">
-        {/* Sidebar */}
-        <aside className="w-60 bg-taam-charcoal flex-shrink-0 flex flex-col pt-6 pb-6" role="navigation" aria-label="Admin navigasyon">
+      <div className="min-h-screen bg-taam-off-white flex flex-col lg:flex-row">
+        {/* Mobile Header & Horizontal Tab Bar */}
+        <header className="lg:hidden bg-taam-charcoal text-white sticky top-0 z-40 border-b border-white/10">
+          <div className="flex items-center justify-between px-4 py-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-taam-blue flex items-center justify-center">
+                <span className="font-display text-white text-[11px] leading-none tracking-wider">TAAM</span>
+              </div>
+              <div>
+                <div className="font-accent font-700 text-white text-sm leading-tight">Admin</div>
+                <div className="font-accent text-white/40 text-[11px] leading-tight">TAAM Club</div>
+              </div>
+            </div>
+            <button
+              onClick={handleLogout}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-accent text-xs text-white/70 hover:text-white bg-white/5 hover:bg-white/10 transition-colors"
+            >
+              <LogOut size={14} />
+              {t('admin.logout')}
+            </button>
+          </div>
+          <nav className="flex items-center gap-1.5 px-4 pb-3 overflow-x-auto" role="navigation" aria-label="Mobil admin navigasyon">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg font-accent text-xs whitespace-nowrap transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-taam-blue text-white font-semibold'
+                    : 'text-white/60 hover:text-white bg-white/5'
+                }`}
+                aria-current={activeTab === tab.id ? 'page' : undefined}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </header>
+
+        {/* Desktop Sidebar */}
+        <aside className="hidden lg:flex w-60 bg-taam-charcoal flex-shrink-0 flex-col pt-6 pb-6" role="navigation" aria-label="Admin navigasyon">
           {/* Logo */}
           <div className="px-5 mb-8">
             <div className="flex items-center gap-3">
@@ -814,14 +855,14 @@ export default function AdminPage() {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-auto p-8" role="main">
+        <main className="flex-1 min-w-0 overflow-x-hidden p-4 sm:p-6 lg:p-8" role="main">
           {/* Header */}
-          <div className="mb-8">
+          <div className="mb-6 lg:mb-8">
             <div className="flex items-center gap-2 text-taam-gray font-accent text-xs uppercase tracking-widest mb-1">
               <LayoutDashboard size={12} />
               TAAM Club Admin
             </div>
-            <h1 className="font-display text-taam-charcoal text-4xl leading-none">
+            <h1 className="font-display text-taam-charcoal text-3xl sm:text-4xl leading-none">
               {tabs.find((t) => t.id === activeTab)?.label}
             </h1>
           </div>

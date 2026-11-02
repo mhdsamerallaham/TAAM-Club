@@ -24,9 +24,9 @@ function MenuProductCard({ product, lang }: { product: Product; lang: string }) 
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="group"
     >
-      <div className="flex gap-4 p-4 rounded-xl hover:bg-taam-off-white transition-colors duration-200">
+      <div className="flex gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl hover:bg-taam-off-white transition-colors duration-200">
         {/* Image */}
-        <div className="w-24 h-24 md:w-28 md:h-28 rounded-lg overflow-hidden flex-shrink-0 img-zoom">
+        <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-lg overflow-hidden flex-shrink-0 img-zoom">
           {product.image_url ? (
             <img
               src={product.image_url}

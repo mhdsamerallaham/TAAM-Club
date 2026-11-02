@@ -118,3 +118,4 @@ The following safe, non-breaking technical improvements were implemented and ver
    - Added `portion TEXT` and `variants JSONB DEFAULT '[]'::jsonb` columns to the `products` table definition and updated default `site_settings` seed values to `info@taamclub.com` (removing the placeholder phone number).
 6. **Added HTTP Security & Caching Headers (`vercel.json`):**
    - Configured `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`, `Strict-Transport-Security`, and `Cache-Control: public, max-age=31536000, immutable` for `/assets/(.*)`.
+

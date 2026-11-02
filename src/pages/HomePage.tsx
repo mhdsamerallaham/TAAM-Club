@@ -83,8 +83,7 @@ function SignatureCard({ product, lang, index }: { product: Product; lang: strin
       initial={{ opacity: 0, y: 60 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
-      className="product-card group rounded-xl overflow-hidden"
-      style={{ aspectRatio: index % 3 === 0 ? '3/4' : '1/1' }}
+      className="product-card group rounded-xl overflow-hidden w-full h-full"
     >
       {/* Image */}
       <div className="img-zoom absolute inset-0">
@@ -414,13 +413,13 @@ export default function HomePage() {
             ))}
           </div>
 
-          <RevealSection className="mt-8 flex items-center gap-6">
+          <RevealSection className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
             <p className="text-taam-gray font-accent text-base max-w-xs leading-relaxed">
               {t('brand.sub')}
             </p>
             <Link
               to="/about"
-              className="flex-shrink-0 btn-taam btn-taam-outline text-sm px-5 py-3 group"
+              className="self-start sm:self-auto flex-shrink-0 btn-taam btn-taam-outline text-sm px-5 py-3 group"
               aria-label="TAAM Club hakkında daha fazla bilgi"
             >
               Daha Fazla
@@ -455,17 +454,17 @@ export default function HomePage() {
 
           {/* Asymmetric Product Grid */}
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
               {Array(5).fill(0).map((_, i) => (
-                <div key={i} className={`skeleton rounded-xl ${i === 0 ? 'row-span-2' : ''}`} style={{ height: i === 0 ? 480 : 220 }} />
+                <div key={i} className={`skeleton rounded-xl ${i === 0 ? 'sm:row-span-2' : ''}`} style={{ height: i === 0 ? 480 : 220 }} />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4" style={{ gridAutoRows: '220px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-4 auto-rows-[260px] sm:auto-rows-[220px]">
               {featuredProducts.slice(0, 5).map((product, i) => (
                 <div
                   key={product.id}
-                  className={`relative ${i === 0 ? 'row-span-2' : ''} ${i === 3 ? 'col-span-2 md:col-span-1' : ''}`}
+                  className={`relative ${i === 0 ? 'sm:row-span-2' : ''} ${i === 3 ? 'sm:col-span-2 md:col-span-1' : ''}`}
                 >
                   <SignatureCard product={product} lang={lang} index={i} />
                 </div>

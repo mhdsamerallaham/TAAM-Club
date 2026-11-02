@@ -98,3 +98,4 @@ Yukarıda belirtilen haklarınıza ilişkin taleplerinizi, *Veri Sorumlusuna Ba�
    - İş başvurunuz olumsuz sonuçlandığı takdirde kişisel verileriniz başvuru tarihinden itibaren **`[REQUIRES BUSINESS INPUT: Örn: 6 ay veya 1 yıl]`** süreyle saklanmakta ve bu sürenin sonunda periyodik imha döneminde silinmektedir.
 5. **Haklarınız ve Başvuru:**
    - KVKK’nın 11. maddesi kapsamındaki tüm haklarınızı `info@taamclub.com` adresine e-posta göndererek veya **`[REQUIRES BUSINESS INPUT: Resmi Tebligat Adresi]`** adresine yazılı başvuruda bulunarak kullanabilirsiniz.
+
