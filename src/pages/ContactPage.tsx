@@ -14,21 +14,14 @@ export default function ContactPage() {
       icon: <MapPin size={22} className="text-taam-red" />,
       label: t('contact.address'),
       value: t('contact.addressValue'),
-      href: 'https://maps.google.com',
+      href: 'https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7',
       external: true,
-    },
-    {
-      icon: <Phone size={22} className="text-taam-red" />,
-      label: t('contact.phone'),
-      value: '+90 500 000 00 00',
-      href: 'tel:+905000000000',
-      external: false,
     },
     {
       icon: <Mail size={22} className="text-taam-red" />,
       label: t('contact.email'),
-      value: t('contact.emailValue'),
-      href: `mailto:${t('contact.emailValue')}`,
+      value: 'info@taamclub.com',
+      href: 'mailto:info@taamclub.com',
       external: false,
     },
     {
@@ -152,13 +145,28 @@ export default function ContactPage() {
             ))}
           </div>
 
+          {/* Embedded Google Map Section */}
+          <div className="mt-8 rounded-2xl overflow-hidden border border-taam-tile shadow-sm">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96267.06245838925!2d28.86875567458753!3d41.06143545761176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab12a1e97f799%3A0x9eb5562c9296d851!2sTAAM!5e0!3m2!1str!2str!4v1793618870913!5m2!1str!2str"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="TAAM Google Maps Konumu"
+              className="w-full h-[400px] md:h-[480px]"
+            />
+          </div>
+
           {/* Map CTA */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="bg-taam-charcoal rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6"
+            className="bg-taam-charcoal rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 mt-8"
           >
             <div>
               <div className="font-accent text-white/50 text-xs uppercase tracking-widest mb-2">{t('contact.directions')}</div>
@@ -167,7 +175,7 @@ export default function ContactPage() {
               </h2>
             </div>
             <a
-              href="https://maps.google.com"
+              href="https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-taam btn-taam-red text-sm px-8 py-4 group inline-flex flex-shrink-0"
@@ -195,15 +203,15 @@ export default function ContactPage() {
                       {lang === 'tr' ? 'Tam Adres' : 'Full Address'}
                     </th>
                     <td className="py-3 text-taam-gray">
-                      Güzide Mertcan, İstanbul, Türkiye (Koordinatlar: 41.0082° K, 28.9784° D)
+                      İstanbul, Türkiye (<a href="https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7" target="_blank" rel="noopener noreferrer" className="text-taam-blue underline">Google Maps</a>)
                     </td>
                   </tr>
                   <tr>
                     <th scope="row" className="py-3 font-semibold text-taam-charcoal">
-                      {lang === 'tr' ? 'Telefon & E-posta' : 'Telephone & Email'}
+                      {lang === 'tr' ? 'E-posta' : 'Email'}
                     </th>
                     <td className="py-3 text-taam-gray">
-                      +90 500 000 00 00 • merhaba@taamclub.com
+                      info@taamclub.com
                     </td>
                   </tr>
                   <tr>
@@ -228,16 +236,6 @@ export default function ContactPage() {
                     </th>
                     <td className="py-3 text-taam-gray">
                       {lang === 'tr' ? 'Restoran içi oturum ve Hızlı Gel-Al (Takeaway)' : 'Dine-in Seating and Express Takeaway'}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="py-3 font-semibold text-taam-charcoal">
-                      {lang === 'tr' ? 'Yazılım ve Altyapı' : 'Software & Infrastructure'}
-                    </th>
-                    <td className="py-3 text-taam-gray">
-                      <a href="https://www.samer.life/" target="_blank" rel="noopener noreferrer" className="text-taam-blue font-semibold hover:underline">
-                        Samer
-                      </a>
                     </td>
                   </tr>
                 </tbody>

@@ -7,6 +7,7 @@ import { getCategories, getAllProducts } from '@/lib/supabase/queries';
 import { demoCategories, demoProducts } from '@/data/demo';
 import type { Category, Product } from '@/types';
 import { Flame, Leaf, Star, Sparkles } from 'lucide-react';
+import { TaamMotifs } from '@/components/ui/Logo';
 
 // ─── Product Card ────────────────────────────────────
 function MenuProductCard({ product, lang }: { product: Product; lang: string }) {
@@ -23,7 +24,7 @@ function MenuProductCard({ product, lang }: { product: Product; lang: string }) 
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="group"
     >
-      <div className="flex gap-4 p-4 rounded-xl hover:bg-taam-off-white transition-colors duration-200 cursor-pointer">
+      <div className="flex gap-4 p-4 rounded-xl hover:bg-taam-off-white transition-colors duration-200">
         {/* Image */}
         <div className="w-24 h-24 md:w-28 md:h-28 rounded-lg overflow-hidden flex-shrink-0 img-zoom">
           {product.image_url ? (
@@ -44,7 +45,7 @@ function MenuProductCard({ product, lang }: { product: Product; lang: string }) 
 
         {/* Info */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
               {/* Badges */}
               <div className="flex flex-wrap gap-1.5 mb-1.5">
@@ -68,24 +69,54 @@ function MenuProductCard({ product, lang }: { product: Product; lang: string }) 
                     <Leaf size={10} /> Veg
                   </span>
                 )}
+                {product.portion && (
+                  <span className="inline-flex items-center text-taam-gray bg-taam-off-white border border-taam-tile text-xs font-accent px-1.5 py-0.5 rounded">
+                    {product.portion}
+                  </span>
+                )}
               </div>
 
-              <h3 className="font-display text-taam-charcoal text-lg md:text-xl leading-tight mb-1 truncate">
+              <h3 className="font-display text-taam-charcoal text-lg md:text-xl leading-tight mb-1">
                 {name}
               </h3>
               <p className="font-accent text-taam-gray text-sm leading-relaxed line-clamp-2">{desc}</p>
+
+              {/* Variant price chips */}
+              {product.variants && product.variants.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {product.variants.map((v, idx) => (
+                    <span key={idx} className="inline-flex items-center gap-1 bg-taam-off-white text-taam-charcoal text-xs font-accent px-2 py-0.5 rounded border border-taam-tile">
+                      <span className="font-semibold text-taam-gray">{lang === 'en' ? v.label_en : v.label_tr}:</span>
+                      <span className="text-taam-blue font-bold">₺{v.price}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Price */}
-            <div className="flex-shrink-0 text-right">
-              <span className="font-display text-taam-blue text-xl md:text-2xl leading-none">
-                ₺{product.price.toFixed(0)}
-              </span>
+            <div className="flex-shrink-0 sm:text-right mt-1 sm:mt-0">
+              {product.variants && product.variants.length > 0 ? (
+                <div>
+                  <span className="font-display text-taam-blue text-lg md:text-xl leading-none block">
+                    ₺{product.variants[0].price} – ₺{product.variants[product.variants.length - 1].price}
+                  </span>
+                  <span className="font-accent text-taam-gray text-[11px] block mt-1">
+                    {lang === 'en' ? 'Portion options' : 'Gramaj/Porsiyon'}
+                  </span>
+                </div>
+              ) : (
+                <div>
+                  <span className="font-display text-taam-blue text-xl md:text-2xl leading-none block">
+                    ₺{product.price.toFixed(0)}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <div className="border-b border-taam-tile mx-4" />
+      <div className="border-b border-taam-tile/60 mx-4" />
     </motion.article>
   );
 }
@@ -214,15 +245,20 @@ export default function MenuPage() {
       {/* ─── Hero Banner ─── */}
       <div className="bg-taam-blue pt-20 pb-12 md:pt-28 md:pb-16" aria-label="Menü başlığı">
         <div className="container-taam">
-          <div className="flex items-end justify-between">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <span className="font-accent text-white/50 text-xs uppercase tracking-widest">— TAAM Club</span>
-              <h1 className="text-display-lg text-white leading-none mt-2">
+              <span className="font-accent text-white/50 text-xs uppercase tracking-widest block mb-2">
+                — Good sofra, better days
+              </span>
+              <h1 className="text-display-lg text-white leading-none">
                 {t('menu.title')}
               </h1>
+              <div className="mt-4">
+                <TaamMotifs className="text-white/60" />
+              </div>
             </div>
             <div
-              className="font-display text-white/5 leading-none hidden md:block"
+              className="font-display text-white/5 leading-none hidden md:block select-none"
               style={{ fontSize: 'clamp(80px, 10vw, 140px)' }}
               aria-hidden="true"
             >

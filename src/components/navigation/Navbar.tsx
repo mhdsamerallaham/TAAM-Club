@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLangStore } from '@/hooks/useLang';
+import { TaamLogo } from '@/components/ui/Logo';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -31,6 +32,7 @@ export default function Navbar() {
     { label: t('nav.home'), href: '/' },
     { label: t('nav.menu'), href: '/menu' },
     { label: t('nav.about'), href: '/about' },
+    { label: t('nav.careers', 'Kariyer'), href: '/careers' },
     { label: t('nav.contact'), href: '/contact' },
   ];
 
@@ -44,7 +46,7 @@ export default function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          backgroundColor: isTransparent ? 'transparent' : 'rgba(10, 31, 92, 0.97)',
+          backgroundColor: isTransparent ? 'transparent' : 'rgba(0, 38, 100, 0.97)',
           backdropFilter: isTransparent ? 'none' : 'blur(16px)',
           boxShadow: isTransparent ? 'none' : '0 1px 0 rgba(255,255,255,0.08)',
         }}
@@ -52,10 +54,8 @@ export default function Navbar() {
         <div className="container-taam">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 group" aria-label="TAAM Club - Ana Sayfa">
-              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-taam-blue border-2 border-white/20 flex items-center justify-center group-hover:border-white/50 transition-all duration-300">
-                <span className="font-display text-white text-sm md:text-base leading-none tracking-wider">TAAM</span>
-              </div>
+            <Link to="/" className="flex items-center group py-2" aria-label="TAAM Club - Ana Sayfa">
+              <TaamLogo className="h-6 md:h-8 w-auto text-white transition-opacity duration-200 group-hover:opacity-90" />
             </Link>
 
             {/* Desktop Nav */}
@@ -141,9 +141,9 @@ export default function Navbar() {
           >
             {/* Close header */}
             <div className="flex items-center justify-between mb-12">
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                <span className="font-display text-white text-sm leading-none tracking-wider">TAAM</span>
-              </div>
+              <Link to="/" onClick={() => setMenuOpen(false)} aria-label="TAAM Club">
+                <TaamLogo className="h-6 w-auto text-white" />
+              </Link>
               <button
                 onClick={() => setMenuOpen(false)}
                 className="text-white/70 hover:text-white text-sm font-accent uppercase tracking-widest"

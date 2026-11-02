@@ -57,11 +57,6 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       'publisher': {
         '@id': `${SITE_URL}/#organization`,
       },
-      'creator': {
-        '@type': 'Person',
-        'name': 'Samer',
-        'url': 'https://www.samer.life',
-      },
     },
     {
       '@type': ['Restaurant', 'FastFoodRestaurant'],
@@ -70,9 +65,9 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       'url': SITE_URL,
       'logo': `${SITE_URL}/favicon.svg`,
       'image': DEFAULT_IMAGE,
-      'description': 'Premium burgerler, çıtır tavuk, özel soslar ve gurme tatlar sunan modern İstanbul restoranı.',
-      'telephone': '+905000000000',
-      'email': 'merhaba@taamclub.com',
+      'description': 'Premium smash burgerler, çıtır tavuk ve kanatlar, taş fırın pizza ve gurme tatlılar sunan modern restoran.',
+      'email': 'info@taamclub.com',
+      'hasMap': 'https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7',
       'priceRange': '₺₺',
       'servesCuisine': ['American', 'Burgers', 'Crispy Chicken', 'Fast Casual', 'Desserts'],
       'address': {
@@ -104,11 +99,6 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       'sameAs': [
         'https://www.instagram.com/taamclub/',
       ],
-      'creator': {
-        '@type': 'Person',
-        'name': 'Samer',
-        'url': 'https://www.samer.life',
-      },
     },
   ];
 

@@ -8,9 +8,10 @@ let localProducts: Product[] = [...demoProducts];
 let localInstagramPosts: InstagramPost[] = [...demoInstagramPosts];
 const localSettings: Record<string, string> = {
   restaurant_name: 'TAAM Club',
-  phone: '+90 (212) 000 00 00',
+  email: 'info@taamclub.com',
   instagram: '@taamclub',
   address: 'İstanbul, Türkiye',
+  maps_url: 'https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7',
 };
 
 // ─── Categories ───────────────────────────────────────────

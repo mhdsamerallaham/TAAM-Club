@@ -242,10 +242,10 @@ export default function AboutPage() {
                   <tbody className="divide-y divide-taam-tile">
                     <tr>
                       <th scope="row" className="py-3 font-semibold text-taam-charcoal w-1/3">
-                        {lang === 'tr' ? 'Kuruluş & Merkez' : 'Founded & Headquarters'}
+                        {lang === 'tr' ? 'Kurucu Şef & Merkez' : 'Founder Chef & Headquarters'}
                       </th>
                       <td className="py-3 text-taam-gray">
-                        2024 • Güzide Mertcan, İstanbul, Türkiye
+                        {lang === 'tr' ? 'Güzide Mertcan (Kurucu Şef) • İstanbul, Türkiye' : 'Güzide Mertcan (Founding Chef) • Istanbul, Turkey'}
                       </td>
                     </tr>
                     <tr>
@@ -262,16 +262,6 @@ export default function AboutPage() {
                       </th>
                       <td className="py-3 text-taam-gray">
                         {lang === 'tr' ? '%100 Yerli taze dana eti ve günlük taze marine edilen but göğüs tavuk eti' : '100% Domestic fresh beef and daily house-marinated premium chicken'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
-                        {lang === 'tr' ? 'Web & Sistem Mimarisi' : 'Web & Systems Architecture'}
-                      </th>
-                      <td className="py-3 text-taam-gray">
-                        <a href="https://www.samer.life/" target="_blank" rel="noopener noreferrer" className="text-taam-blue font-semibold hover:underline">
-                          Samer
-                        </a>
                       </td>
                     </tr>
                   </tbody>

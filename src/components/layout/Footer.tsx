@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLangStore } from '@/hooks/useLang';
-import { MapPin, Phone, Clock, ArrowUpRight } from 'lucide-react';
+import { MapPin, Mail, Clock, ArrowUpRight } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/Icons';
+import { TaamLogo, TaamMotifs } from '@/components/ui/Logo';
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -13,6 +14,7 @@ export default function Footer() {
     { label: t('nav.home'), href: '/' },
     { label: t('nav.menu'), href: '/menu' },
     { label: t('nav.about'), href: '/about' },
+    { label: t('nav.careers', 'Kariyer'), href: '/careers' },
     { label: t('nav.contact'), href: '/contact' },
   ];
 
@@ -20,10 +22,10 @@ export default function Footer() {
     <footer className="bg-taam-charcoal text-white relative overflow-hidden" role="contentinfo">
       {/* Big watermark logo */}
       <div
-        className="footer-logo-text absolute bottom-0 left-0 right-0 text-center pointer-events-none select-none"
+        className="footer-logo-text absolute bottom-0 left-0 right-0 text-center pointer-events-none select-none opacity-5 flex items-center justify-center overflow-hidden"
         aria-hidden="true"
       >
-        TAAM
+        <TaamLogo className="w-full max-w-4xl h-auto text-white" />
       </div>
 
       <div className="container-taam relative z-10">
@@ -31,16 +33,18 @@ export default function Footer() {
         <div className="py-16 md:py-20 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 border-b border-white/10">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-full bg-taam-blue border-2 border-white/20 flex items-center justify-center">
-                <span className="font-display text-white text-sm leading-none tracking-wider">TAAM</span>
-              </div>
-              <div>
-                <div className="font-display text-white text-xl leading-none">TAAM CLUB</div>
-                <div className="text-white/50 text-xs font-accent mt-0.5 uppercase tracking-widest">Restaurant</div>
+            <div className="mb-4">
+              <Link to="/" aria-label="TAAM Club">
+                <TaamLogo className="h-8 md:h-10 w-auto text-white" />
+              </Link>
+              <div className="mt-3">
+                <TaamMotifs className="text-white/60" />
               </div>
             </div>
-            <p className="text-white/60 font-accent text-sm leading-relaxed max-w-xs">
+            <p className="text-white/70 font-accent text-sm leading-relaxed max-w-xs mt-3">
+              Good sofra, better days.
+            </p>
+            <p className="text-white/50 font-accent text-xs mt-1">
               {t('footer.tagline')}
             </p>
             <a
@@ -81,18 +85,25 @@ export default function Footer() {
               {t('contact.title')}
             </h3>
             <ul className="flex flex-col gap-3" role="list">
-              <li className="flex items-start gap-2 text-white/70">
-                <MapPin size={14} className="mt-0.5 flex-shrink-0 text-taam-red" />
-                <span className="font-accent text-sm">{t('contact.addressValue')}</span>
+              <li>
+                <a
+                  href="https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-white/70 hover:text-white transition-colors group"
+                >
+                  <MapPin size={14} className="mt-0.5 flex-shrink-0 text-taam-red group-hover:scale-110 transition-transform" />
+                  <span className="font-accent text-sm">{t('contact.addressValue')}</span>
+                </a>
               </li>
               <li>
                 <a
-                  href="tel:+905000000000"
+                  href="mailto:info@taamclub.com"
                   className="flex items-center gap-2 text-white/70 hover:text-white transition-colors font-accent text-sm"
-                  aria-label="TAAM Club telefon numarası"
+                  aria-label="TAAM e-posta adresi"
                 >
-                  <Phone size={14} className="flex-shrink-0 text-taam-red" />
-                  +90 500 000 00 00
+                  <Mail size={14} className="flex-shrink-0 text-taam-red" />
+                  info@taamclub.com
                 </a>
               </li>
               <li className="flex items-start gap-2 text-white/70">
@@ -107,17 +118,6 @@ export default function Footer() {
         <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-white/40 text-xs font-accent">
             <span>© {currentYear} TAAM Club. {t('footer.rights')}</span>
-            <span className="text-white/20">•</span>
-            <a
-              href="https://www.samer.life/"
-              target="_blank"
-              rel="nofollow noopener"
-              title="Developer Portfolio"
-              style={{ color: 'inherit', textDecoration: 'none' }}
-              className="hover:text-white/70 transition-colors"
-            >
-              Built by
-            </a>
           </div>
           <div className="flex items-center gap-4">
             <button

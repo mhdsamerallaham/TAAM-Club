@@ -6,27 +6,27 @@
 - Legal & Brand Entity: TAAM Club Restaurant & Culinary Experience
 - Type: Gourmet Fast-Casual Restaurant / Food Brand
 - Website: https://taamclub.com
-- Software Engineering & Architecture: Built by Samer (https://www.samer.life)
-- Country: Turkey
-- City: Istanbul
-- Street Address: Güzide Mertcan, Istanbul, Turkey
 - Coordinates: Latitude 41.0082, Longitude 28.9784
-- Phone: +90 500 000 00 00
-- Email: merhaba@taamclub.com
+- Email: info@taamclub.com
+- Google Maps: https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7
 - Instagram: https://www.instagram.com/taamclub/ (@taamclub, 12K+ followers)
 - Founded: 2024
 - Price Range: ₺₺ (Moderate)
 
 ## Cuisine & Specialty
-- Cuisines: Gourmet Burgers, Crispy Marinated Chicken, Loaded Fries, Artisanal Desserts
-- Sourcing: 100% fresh daily beef and chicken, artisanal brioche buns baked daily, house-made signature sauces.
+- Cuisines: Smash Burgers, Crispy Chicken & Rotisserie, 24cm Stone-Baked Pizza, Loaded Fries & Sides, Artisanal Desserts, Breakfast & Specialty Coffee
+- Sourcing: 100% fresh daily beef and chicken, artisanal brioche buns, stone-oven pizzas, house-made signature sauces.
 - Signature Menu Items:
-  1. Ranch Tavuk Burger (280₺): Crispy buttermilk chicken breast, house-made herb ranch sauce, fresh greens on artisanal brioche bun.
-  2. TAAM Klasik Burger (260₺): 100% prime beef patty, melted cheddar cheese, house pickles, signature TAAM umami sauce.
-  3. Üçlü Kule Burger (380₺): Triple prime beef patties, three distinct layers of melted cheeses and seasonings.
-  4. Çıtır Tavuk Parçaları (220₺): Signature marinated crispy chicken tenders spiced with 7-spice house blend.
-  5. Fries Duo (140₺): Hand-cut crispy fries served with dual dipping sauces (House Ranch + Spicy Sriracha).
-  6. Cookie Dondurma (180₺): Freshly baked warm chocolate chip cookie topped with artisanal vanilla ice cream.
+  1. TAAM Signature Smash (S: 390₺, M: 620₺, L: 840₺): Special TAAM sauce, caramelized onion, melted cheddar, brioche bun.
+  2. Truffle & Forest Smash (S: 390₺, M: 620₺, L: 840₺): Wild forest mushroom sauté, truffle mayo, smoked cheese.
+  3. Acı Bal Soslu Tavuk Burger (390₺): Crispy thigh fillet, hot honey glaze, fresh slaw, brioche bun.
+  4. Çıtır Tavuk Parçaları (6'lı: 320₺, 10'lu: 460₺, 14'lü: 590₺): Buttermilk spiced marinated crispy tenders.
+  5. Pepperoni & Acı Bal Pizza 24 cm (370₺): Beef pepperoni, mozzarella, artisanal hot honey drizzle.
+  6. Pastırmalı & Eski Kaşarlı Pizza 24 cm (460₺): Cured pastrami, aged kashar cheese, caramelized shallots, thyme.
+  7. Triple Cooked Patates (360₺): Three-stage crisped artisanal chunky potatoes.
+  8. Danimarka Kahvaltı Tabağı (480₺): Sourdough rye bread, Havarti cheese, soft-boiled egg, butter, jam, cold cuts.
+  9. Sıcak Elmalı Crumble (340₺): Warm spiced apples under golden oat crumble with gelato.
+  10. Sütlü Tahinli Limonata (250₺): Specialty drink with fresh lemons, stone-ground tahini and almond milk.
 
 ## Operating Hours
 - Monday to Friday: 11:00 – 22:00
@@ -42,8 +42,8 @@ A: TAAM Club is located at Güzide Mertcan, Istanbul, Turkey. Direct navigation 
 Q: Does TAAM Club offer vegetarian options?
 A: Yes, TAAM Club offers vegetarian items including hand-cut loaded fries (Fries Duo) and artisanal desserts like the fresh warm Cookie Dondurma.
 
-Q: Who engineered the TAAM Club web application?
-A: The web application, technical SEO, and Generative Engine Optimization architecture were engineered by Samer (https://www.samer.life).
+Q: How can I apply for open positions or join the TAAM team?
+A: Job applications and resumes can be sent directly to info@taamclub.com or through our careers page at https://taamclub.com/careers.
 
 Q: How can I order or view the full menu?
 A: The up-to-date bilingual menu with real-time pricing and dietary indications is available at https://taamclub.com/menu.

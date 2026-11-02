@@ -4,8 +4,9 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import SEOHead from '@/components/seo/SEOHead';
-import { ArrowRight, MapPin, Clock, Phone, HelpCircle } from 'lucide-react';
+import { ArrowRight, MapPin, Clock, Mail, HelpCircle } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/Icons';
+import { TaamLogo, TaamMotifs } from '@/components/ui/Logo';
 import { useLangStore } from '@/hooks/useLang';
 import { getFeaturedProducts, getInstagramPosts } from '@/lib/supabase/queries';
 import { demoProducts, demoInstagramPosts } from '@/data/demo';
@@ -306,15 +307,14 @@ export default function HomePage() {
 
             {/* Main TAAM text */}
             <div className="overflow-hidden">
-              <motion.h1
+              <motion.div
                 initial={{ y: '100%' }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                className="text-display-xl text-white leading-none block"
+                className="py-2"
               >
-                <span>TAAM</span>
-                <span className="text-taam-red block -mt-4 md:-mt-6">CLUB</span>
-              </motion.h1>
+                <TaamLogo className="h-16 sm:h-20 md:h-28 lg:h-32 w-auto text-white" />
+              </motion.div>
             </div>
 
             {/* Tagline */}
@@ -322,11 +322,19 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.8 }}
-              className="font-display text-white/80 mt-4 md:mt-6 tracking-wide"
-              style={{ fontSize: 'clamp(18px, 3vw, 32px)' }}
+              className="font-display text-white/90 mt-4 md:mt-6 tracking-wide"
+              style={{ fontSize: 'clamp(20px, 3.2vw, 36px)' }}
             >
-              {t('hero.tagline')} {t('hero.tagline2')}
+              Good sofra, better days.
             </motion.p>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.85, duration: 0.8 }}
+              className="mt-3"
+            >
+              <TaamMotifs className="text-white/60" />
+            </motion.div>
 
             {/* CTA */}
             <motion.div
@@ -642,7 +650,7 @@ export default function HomePage() {
                 {[
                   { icon: <MapPin size={20} className="text-taam-red flex-shrink-0" />, label: t('contact.address'), value: t('contact.addressValue') },
                   { icon: <Clock size={20} className="text-taam-red flex-shrink-0" />, label: t('contact.hours'), value: t('contact.hoursValue') },
-                  { icon: <Phone size={20} className="text-taam-red flex-shrink-0" />, label: t('contact.phone'), value: '+90 500 000 00 00' },
+                  { icon: <Mail size={20} className="text-taam-red flex-shrink-0" />, label: t('contact.email'), value: 'info@taamclub.com' },
                 ].map((item) => (
                   <RevealSection key={item.label} className="flex items-start gap-4">
                     <div className="mt-0.5">{item.icon}</div>
@@ -656,7 +664,7 @@ export default function HomePage() {
 
               <RevealSection className="flex flex-wrap gap-4 mt-10">
                 <a
-                  href="https://maps.google.com"
+                  href="https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-taam btn-taam-red text-sm px-6 py-3 group inline-flex"
@@ -762,16 +770,6 @@ export default function HomePage() {
                       </th>
                       <td className="py-3 text-taam-gray">
                         {lang === 'tr' ? 'Hafta içi 11:00–22:00 | Hafta sonu 10:00–23:00' : 'Mon–Fri 11:00–22:00 | Sat–Sun 10:00–23:00'}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row" className="py-3 font-semibold text-taam-charcoal">
-                        {lang === 'tr' ? 'Geliştirici & Mimari' : 'Engineering & Architecture'}
-                      </th>
-                      <td className="py-3 text-taam-gray">
-                        <a href="https://www.samer.life/" target="_blank" rel="noopener noreferrer" className="text-taam-blue font-semibold hover:underline">
-                          Samer
-                        </a>
                       </td>
                     </tr>
                   </tbody>

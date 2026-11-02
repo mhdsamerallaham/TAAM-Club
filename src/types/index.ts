@@ -10,6 +10,12 @@ export interface Category {
   created_at: string;
 }
 
+export interface ProductVariant {
+  label_tr: string;
+  label_en: string;
+  price: number;
+}
+
 export interface Product {
   id: string;
   category_id: string | null;
@@ -18,6 +24,8 @@ export interface Product {
   description_tr: string | null;
   description_en: string | null;
   price: number;
+  portion?: string;
+  variants?: ProductVariant[];
   image_url: string | null;
   sort_order: number;
   is_featured: boolean;
