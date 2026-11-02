@@ -12,7 +12,7 @@ import { InstagramIcon } from '@/components/ui/Icons';
 import type { Category, Product, InstagramPost } from '@/types';
 import {
   LayoutDashboard, UtensilsCrossed, Tag, Settings, LogOut,
-  Plus, Pencil, Trash2, Save, X, Check, AlertTriangle
+  Plus, Pencil, Trash2, Save, X, Check, AlertTriangle, Upload, ImagePlus
 } from 'lucide-react';
 
 // ─── Types & Auth Constants ────────────────────────────────────
@@ -168,6 +168,129 @@ function ConfirmDialog({ onConfirm, onCancel, message }: { onConfirm: () => void
   );
 }
 
+// ─── Device Image Upload Field ────────────────────────────────────
+function optimizeImageFile(file: File, maxDim = 900, quality = 0.82): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Dosya okunamadı.'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Görsel yüklenemedi.'));
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(reader.result as string);
+          return;
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/webp', quality);
+        resolve(dataUrl.startsWith('data:image/webp') ? dataUrl : canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function ImageUploadField({
+  value,
+  onChange,
+  onError,
+}: {
+  value: string;
+  onChange: (dataUrl: string) => void;
+  onError?: (msg: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      onError?.('Lütfen geçerli bir görsel dosyası (PNG, JPG, WEBP) seçin.');
+      return;
+    }
+    setUploading(true);
+    try {
+      if (isSupabaseConfigured) {
+        const ext = file.name.split('.').pop() || 'jpg';
+        const filePath = `uploads/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+        const { error: uploadErr } = await supabase.storage.from('images').upload(filePath, file, { upsert: true });
+        if (!uploadErr) {
+          const { data } = supabase.storage.from('images').getPublicUrl(filePath);
+          if (data?.publicUrl) {
+            onChange(data.publicUrl);
+            return;
+          }
+        }
+      }
+      const optimizedDataUrl = await optimizeImageFile(file);
+      onChange(optimizedDataUrl);
+    } catch {
+      onError?.('Görsel yüklenirken bir hata oluştu.');
+    } finally {
+      setUploading(false);
+      e.target.value = '';
+    }
+  }
+
+  return (
+    <div className="md:col-span-2">
+      <label className="admin-label">Ürün / Gönderi Görseli</label>
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 p-3.5 rounded-xl border border-dashed border-gray-300 bg-taam-off-white/60">
+        {value ? (
+          <div className="relative w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 border border-gray-200 bg-white">
+            <img src={value} alt="Yüklenen görsel" className="w-full h-full object-cover" />
+            <button
+              type="button"
+              onClick={() => onChange('')}
+              className="absolute top-1 right-1 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center shadow hover:bg-red-700 transition-colors"
+              aria-label="Görseli kaldır"
+            >
+              <X size={12} />
+            </button>
+          </div>
+        ) : (
+          <div className="w-24 h-24 rounded-lg border border-gray-200 bg-white flex flex-col items-center justify-center text-taam-gray flex-shrink-0">
+            <ImagePlus size={22} className="mb-1 opacity-60" />
+            <span className="font-accent text-[10px] text-center px-1">Görsel Yok</span>
+          </div>
+        )}
+
+        <div className="flex flex-col gap-2">
+          <label className="btn-taam btn-taam-primary text-xs px-4 py-2.5 cursor-pointer self-start inline-flex items-center gap-2">
+            <Upload size={14} />
+            <span>{uploading ? 'Görsel İşleniyor...' : value ? 'Görseli Değiştir (Cihazdan Seç)' : 'Cihazdan Görsel Yükle'}</span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              disabled={uploading}
+              className="hidden"
+            />
+          </label>
+          <span className="font-accent text-xs text-taam-gray">
+            Cihazınızdan veya galerinizden fotoğraf seçerek doğrudan yükleyebilirsiniz (JPG, PNG, WEBP).
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Products Manager ────────────────────────────────────
 function ProductsManager() {
   const { t } = useTranslation();
@@ -267,7 +390,6 @@ function ProductsManager() {
               { key: 'name_en', label: t('admin.name_en') },
               { key: 'description_tr', label: t('admin.description_tr') },
               { key: 'description_en', label: t('admin.description_en') },
-              { key: 'image_url', label: t('admin.image_url') },
               { key: 'price', label: t('admin.price'), type: 'number' },
               { key: 'sort_order', label: t('admin.sort_order'), type: 'number' },
             ].map(({ key, label, type }) => (
@@ -296,6 +418,11 @@ function ProductsManager() {
                 ))}
               </select>
             </div>
+            <ImageUploadField
+              value={editing.image_url ?? ''}
+              onChange={(dataUrl) => setEditing((prev) => ({ ...prev, image_url: dataUrl }))}
+              onError={(msg) => showToast(msg, 'error')}
+            />
           </div>
 
           {/* Checkboxes */}
@@ -588,8 +715,12 @@ function InstagramManager() {
       {editing && (
         <div className="admin-card mb-6 border-taam-blue border-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <ImageUploadField
+              value={editing.image_url ?? ''}
+              onChange={(dataUrl) => setEditing((prev) => ({ ...prev, image_url: dataUrl }))}
+              onError={(msg) => showToast(msg, 'error')}
+            />
             {[
-              { key: 'image_url', label: t('admin.image_url') },
               { key: 'instagram_url', label: t('admin.instagram_url') },
               { key: 'caption_tr', label: 'Caption (TR)' },
               { key: 'caption_en', label: 'Caption (EN)' },
@@ -601,12 +732,6 @@ function InstagramManager() {
               </div>
             ))}
           </div>
-          {editing.image_url && (
-            <div className="mb-4">
-              <label className="admin-label">Önizleme</label>
-              <img src={editing.image_url} alt="Preview" className="w-24 h-24 object-cover rounded-lg" />
-            </div>
-          )}
           <div className="flex gap-3">
             <button onClick={handleSave} className="btn-taam btn-taam-primary text-xs px-4 py-2"><Save size={14} /> {t('admin.save')}</button>
             <button onClick={() => setEditing(null)} className="btn-taam btn-taam-outline text-xs px-4 py-2"><X size={14} /> {t('admin.cancel')}</button>

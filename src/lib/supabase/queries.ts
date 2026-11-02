@@ -2,17 +2,43 @@ import { supabase, isSupabaseConfigured } from './client';
 import { demoCategories, demoProducts, demoInstagramPosts } from '@/data/demo';
 import type { Category, Product, InstagramPost } from '@/types';
 
-// In-memory demo store for when Supabase is not configured
-let localCategories: Category[] = [...demoCategories];
-let localProducts: Product[] = [...demoProducts];
-let localInstagramPosts: InstagramPost[] = [...demoInstagramPosts];
-const localSettings: Record<string, string> = {
+const STORAGE_KEYS = {
+  categories: 'taam_local_categories_v1',
+  products: 'taam_local_products_v1',
+  instagram: 'taam_local_instagram_v1',
+  settings: 'taam_local_settings_v1',
+};
+
+function loadFromStorage<T>(key: string, fallback: T): T {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem(key) : null;
+    return raw ? (JSON.parse(raw) as T) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function saveToStorage<T>(key: string, value: T): void {
+  try {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+  } catch {
+    // Ignore storage quota errors silently
+  }
+}
+
+// Persistent local store for when Supabase is not configured
+let localCategories: Category[] = loadFromStorage(STORAGE_KEYS.categories, [...demoCategories]);
+let localProducts: Product[] = loadFromStorage(STORAGE_KEYS.products, [...demoProducts]);
+let localInstagramPosts: InstagramPost[] = loadFromStorage(STORAGE_KEYS.instagram, [...demoInstagramPosts]);
+const localSettings: Record<string, string> = loadFromStorage(STORAGE_KEYS.settings, {
   restaurant_name: 'TAAM Club',
   email: 'info@taamclub.com',
   instagram: '@taamclub',
   address: 'İstanbul, Türkiye',
   maps_url: 'https://maps.app.goo.gl/LjcB8p5Uq7dKkBBA7',
-};
+});
 
 // ─── Categories ───────────────────────────────────────────
 export async function getCategories(): Promise<Category[]> {
@@ -59,6 +85,7 @@ export async function upsertCategory(category: Partial<Category>): Promise<Categ
     } else {
       localCategories.push(updated);
     }
+    saveToStorage(STORAGE_KEYS.categories, localCategories);
     return updated;
   }
   const { data, error } = await supabase
@@ -74,6 +101,7 @@ export async function upsertCategory(category: Partial<Category>): Promise<Categ
 export async function deleteCategory(id: string): Promise<void> {
   if (!isSupabaseConfigured) {
     localCategories = localCategories.filter((c) => c.id !== id);
+    saveToStorage(STORAGE_KEYS.categories, localCategories);
     return;
   }
   const { error } = await supabase.from('categories').delete().eq('id', id);
@@ -162,6 +190,7 @@ export async function upsertProduct(product: Partial<Product>): Promise<Product>
     } else {
       localProducts.push(updated);
     }
+    saveToStorage(STORAGE_KEYS.products, localProducts);
     return updated;
   }
   const payload = { ...product, updated_at: new Date().toISOString() };
@@ -178,6 +207,7 @@ export async function upsertProduct(product: Partial<Product>): Promise<Product>
 export async function deleteProduct(id: string): Promise<void> {
   if (!isSupabaseConfigured) {
     localProducts = localProducts.filter((p) => p.id !== id);
+    saveToStorage(STORAGE_KEYS.products, localProducts);
     return;
   }
   const { error } = await supabase.from('products').delete().eq('id', id);
@@ -230,6 +260,7 @@ export async function upsertInstagramPost(post: Partial<InstagramPost>): Promise
     } else {
       localInstagramPosts.push(updated);
     }
+    saveToStorage(STORAGE_KEYS.instagram, localInstagramPosts);
     return updated;
   }
   const { data, error } = await supabase
@@ -245,6 +276,7 @@ export async function upsertInstagramPost(post: Partial<InstagramPost>): Promise
 export async function deleteInstagramPost(id: string): Promise<void> {
   if (!isSupabaseConfigured) {
     localInstagramPosts = localInstagramPosts.filter((p) => p.id !== id);
+    saveToStorage(STORAGE_KEYS.instagram, localInstagramPosts);
     return;
   }
   const { error } = await supabase.from('instagram_posts').delete().eq('id', id);
@@ -269,6 +301,7 @@ export async function getSiteSettings(): Promise<Record<string, string>> {
 export async function updateSiteSetting(key: string, value: string): Promise<void> {
   if (!isSupabaseConfigured) {
     localSettings[key] = value;
+    saveToStorage(STORAGE_KEYS.settings, localSettings);
     return;
   }
   const { error } = await supabase
