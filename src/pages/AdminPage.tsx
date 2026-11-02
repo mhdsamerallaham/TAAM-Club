@@ -15,8 +15,19 @@ import {
   Plus, Pencil, Trash2, Save, X, Check, AlertTriangle
 } from 'lucide-react';
 
-// ─── Types ────────────────────────────────────
+// ─── Types & Auth Constants ────────────────────────────────────
 type AdminTab = 'products' | 'categories' | 'instagram' | 'settings';
+
+const ADMIN_CREDENTIAL_HASH = 'ead41fd9c34b76a66339e908e8331b459188e2afde918851bea1b291471222c0';
+const ADMIN_SESSION_KEY = 'taam_admin_session_v1';
+
+async function sha256Hex(input: string): Promise<string> {
+  const data = new TextEncoder().encode(input);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
 
 // ─── Login Form ────────────────────────────────────
 function LoginForm({ onLogin }: { onLogin: () => void }) {
@@ -31,24 +42,35 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
     setLoading(true);
     setError('');
     try {
-      if (!isSupabaseConfigured) {
-        localStorage.setItem('taam_demo_auth', 'true');
+      const normalizedEmail = email.trim().toLowerCase();
+      const candidateHash = await sha256Hex(`${normalizedEmail}:${password}`);
+
+      if (candidateHash === ADMIN_CREDENTIAL_HASH) {
+        sessionStorage.setItem(ADMIN_SESSION_KEY, candidateHash);
+        if (isSupabaseConfigured) {
+          await supabase.auth.signInWithPassword({ email: normalizedEmail, password }).catch(() => null);
+        }
         onLogin();
         return;
       }
-      const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-      if (authError) throw authError;
-      onLogin();
+
+      if (isSupabaseConfigured) {
+        const { error: authError } = await supabase.auth.signInWithPassword({
+          email: normalizedEmail,
+          password,
+        });
+        if (!authError) {
+          onLogin();
+          return;
+        }
+      }
+
+      throw new Error('Hatalı kullanıcı adı veya şifre.');
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Giriş başarısız');
+      setError(err instanceof Error ? err.message : 'Hatalı kullanıcı adı veya şifre.');
     } finally {
       setLoading(false);
     }
-  }
-
-  function handleDemoLogin() {
-    localStorage.setItem('taam_demo_auth', 'true');
-    onLogin();
   }
 
   return (
@@ -64,23 +86,6 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
         </div>
 
         <div className="admin-card">
-          {!isSupabaseConfigured && (
-            <div className="mb-4 p-3.5 rounded-lg bg-taam-blue/10 border border-taam-blue/20 text-xs text-taam-charcoal space-y-2">
-              <div className="font-accent font-semibold text-taam-blue flex items-center gap-1.5">
-                <span>✦</span> Demo Modu Aktif
-              </div>
-              <p className="text-taam-gray leading-relaxed">
-                Müşteri önizlemesi için demo modundasınız. Herhangi bir şifre girerek veya doğrudan butonla yönetim panelini inceleyebilirsiniz.
-              </p>
-              <button
-                type="button"
-                onClick={handleDemoLogin}
-                className="w-full py-2 px-3 bg-taam-blue text-white rounded font-accent text-xs font-semibold hover:bg-taam-blue/90 transition-colors"
-              >
-                Hızlı Demo Girişi ile İncele →
-              </button>
-            </div>
-          )}
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="admin-label" htmlFor="admin-email">{t('admin.email')}</label>
@@ -90,7 +95,7 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="admin-input"
-                placeholder="admin@taamclub.com"
+                placeholder="info@taamclub.com"
                 required
                 autoComplete="email"
               />
@@ -125,9 +130,6 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
             </button>
           </form>
         </div>
-        <p className="text-center text-taam-gray text-xs font-accent mt-4">
-          Güvenli bağlantı • Supabase Auth
-        </p>
       </div>
     </div>
   );
@@ -703,33 +705,33 @@ function SettingsManager() {
 // ─── ADMIN PAGE ────────────────────────────────────
 export default function AdminPage() {
   const { t } = useTranslation();
-  const [isAuthenticated, setIsAuthenticated] = useState(() =>
-    !isSupabaseConfigured ? localStorage.getItem('taam_demo_auth') === 'true' : false
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    localStorage.removeItem('taam_demo_auth');
+    return sessionStorage.getItem(ADMIN_SESSION_KEY) === ADMIN_CREDENTIAL_HASH;
+  });
   const [activeTab, setActiveTab] = useState<AdminTab>('products');
-  const [loading, setLoading] = useState(() => isSupabaseConfigured);
+  const [loading, setLoading] = useState(() => isSupabaseConfigured && !isAuthenticated);
 
   useEffect(() => {
-    if (!isSupabaseConfigured) {
+    if (!isSupabaseConfigured || isAuthenticated) {
       return;
     }
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setIsAuthenticated(!!session);
+      if (session) setIsAuthenticated(true);
       setLoading(false);
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsAuthenticated(!!session);
+      if (session) setIsAuthenticated(true);
     });
     return () => subscription.unsubscribe();
-  }, []);
+  }, [isAuthenticated]);
 
   async function handleLogout() {
-    if (!isSupabaseConfigured) {
-      localStorage.removeItem('taam_demo_auth');
-      setIsAuthenticated(false);
-      return;
+    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    localStorage.removeItem('taam_demo_auth');
+    if (isSupabaseConfigured) {
+      await supabase.auth.signOut().catch(() => null);
     }
-    await supabase.auth.signOut();
     setIsAuthenticated(false);
   }
 
@@ -771,11 +773,6 @@ export default function AdminPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-accent font-700 text-white text-sm">Admin</span>
-                  {!isSupabaseConfigured && (
-                    <span className="text-[10px] bg-taam-gold/20 text-taam-gold px-1.5 py-0.5 rounded font-accent uppercase tracking-wider">
-                      Demo
-                    </span>
-                  )}
                 </div>
                 <div className="font-accent text-white/40 text-xs">TAAM Club</div>
               </div>
